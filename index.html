@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Crédito Hipotecario</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body>
+    <h1>Proyecto: Simulador de Crédito Hipotecario</h1>
+    <p>El simulador genera un cronograma de pago en base a los datos ingresados (correspondientes a un crédito
+        hipotecario
+        estándar).</p>
+    <p>Los datos necesarios para la simulación son:</p>
+    <ul>
+        <li><b>Valor del inmueble:</b> Valor del inmueble. Debe ser mayor a 0.</li>
+        <li><b>Cuota inicial:</b> Monto deducible del valor del inmueble. Debe ser mayor a 0 y menor al <b>Valor del
+                inmueble</b>.</li>
+        <li><b>TEA (% anual):</b> Porcentaje de la Tasa Efectiva Anual del préstamo hipotecario. Debe ser mayor a 0.
+        </li>
+        <li><b>Nro. de cuotas:</b> Número de cuotas a simular. Debe ser entre 12 y 360.</li>
+        <li><b>Seguro de desgravamen (% mensual):</b> Porcentaje mensual del seguro de desgravamen. Debe ser mayor a 0.
+        </li>
+        <li><b>Seguro del bien (% anual):</b> Porcentaje anual del seguro del bien. Debe ser mayor a 0.</li>
+    </ul>
+    <p>Los resultados son:</p>
+    <ul>
+        <li><b>Nro. cuota:</b> Número de cuota.</li>
+        <li><b>Fecha de vencimiento:</b> Fecha en la que vence la cuota.</li>
+        <li><b>Amortización:</b> Monto que representa el capital de la cuota.</li>
+        <li><b>Interés:</b> Monto que representa el interés de la cuota.</li>
+        <li><b>Seguro de desgravamen:</b> Monto que representa el seguro de desgravamen de la cuota.</li>
+        <li><b>Seguro del bien:</b> Monto que representa el seguro asociado al bien.</li>
+        <li><b>Monto cuota:</b> Monto de la cuota.</li>
+        <li><b>Seguro del capital:</b> Monto que representa el saldo de capital luego de cancelada la cuota.</li>
+    </ul>
+    <p>Los pasos para ejecutar el simulador son:</p>
+    <ol>
+        <li>Levantar la página <b>index.html</b> en un navegador.</li>
+        <li>Presionar <b>F12</b> para abrir las herramientas de desarrollador del navegador y seleccionar la pestaña
+            <b>Console</b>.
+        </li>
+        <li>El simulador pregunta <b>¿Desea simular el cronograma con datos de prueba?</b> Responder <b>Aceptar</b> para
+            simular con datos preseleccionados o <b>Cancelar</b> para ingresar los datos.</li>
+        <li>En caso de haber seleccionado <b>Cancelar</b> en el paso anterior, se solicitarán todos los datos necesarios
+            para la simulación del cronograma.</li>
+        <li>Después de haber ingresado los datos se generará el cronograma y se mostrará en una tabla por la
+            <b>Console</b>.
+        </li>
+    </ol>
+    <script src="/assets/js/app.js"></script>
+</body>
+
+</html>
