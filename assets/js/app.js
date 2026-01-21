@@ -1,4 +1,4 @@
-// Variables
+// Variables globales y constantes
 const BASE_100_PORCENTUAL = 100;
 const NRO_INTENTOS = 3;
 const MENSAJE_MAXIMA_CANTIDAD_INTENTOS = `Ha superado el número máximo de intentos! Vuelva a iniciar el simulador presionando F5 en el navegador.`;
@@ -39,57 +39,46 @@ const mostrarIngreso = (cadena) => {
 }
 
 /**
- * @description Muestra una alerta de maximo número de intentos en caso el dato sea null, caso contrario se mostrará la cadena en consola.
- * @param {string} dato - Dato a validar.
- * @param {string} cadena - Mensaje que se muestra en caso el dato sea diferente de null.
- * @returns {null} null o nada.
- * @example
- * validarIngreso(valorInmueble, `Valor Inmueble: ${valorInmueble}`); // se devolverá null o nada
- */
-const validarIngreso = (dato, cadena) => {
-    if (dato === null) {
-        alert(MENSAJE_MAXIMA_CANTIDAD_INTENTOS);
-        return null;
-    }
-    else {
-        mostrarIngreso(cadena);
-    }
-}
-
-/**
- * @description Valida que el numero sea mayor a 0, caso contrario se muestra el mensaje en consola y devuelve null.
- * @param {number} numero - Número a validar.
+ * @description Valida que el numero sea mayor a 0, caso contrario se muestra una alerta y devuelve null.
+ * @param {string} dato - Número a validar.
  * @param {string} mensaje - Mensaje que se muestra en caso el numero sea menor o igual a cero.
  * @returns {null} null o nada.
  * @example
- * validarNumeroMayorACero(valorInmueble, `El valor del inmueble debe ser mayor a 0.`) // se devolverá null o nada
+ * validarNumeroMayorACero(400000, `El valor del inmueble debe ser mayor a 0.`) // se devolverá null o nada
  */
-const validarNumeroMayorACero = (numero, mensaje) => {
-    if (numero <= 0) {
-        console.log(mensaje);
+const validarNumeroMayorACero = (dato, mensaje) => {
+    if (dato === null
+        || dato.trim().length <= 0
+        || isNaN(Number(dato))
+        || Number(dato) <= 0) {
+        alert(mensaje);
         return null;
     }
 }
 
 /**
- * @description Valida que un numero este en un rango de números (limiteInferior y limiteSuperior), en caso contrario se muestra un mensaje en consola y se devuelve null.
+ * @description Valida que un numero este en un rango de números (limiteInferior y limiteSuperior), en caso contrario se muestra una alerta y se devuelve null.
  * @param {number} numero - Número a validar.
  * @param {number} limiteInferior - Número inferior a validar.
  * @param {number} limiteSuperior - Número superior a validar.
  * @param {string} mensaje - Mensaje que se muestra en caso el numero sea menor al límite inferior o mayor al límite superior.
  * @returns {null} null o nada.
  * @example
- * validarNumeroRango(nroCuotas, 12, 240, `El número de cuotas debe ser entre 12 y 360).`) // se devolverá null o nada
+ * validarNumeroRango(240, 12, 360, `El número de cuotas debe ser entre 12 y 360).`) // se devolverá null o nada
  */
-const validarNumeroRango = (numero, limiteInferior, limiteSuperior, mensaje) => {
-    if (numero < limiteInferior || numero > limiteSuperior) {
-        console.log(mensaje);
+const validarNumeroRango = (dato, limiteInferior, limiteSuperior, mensaje) => {
+    if (dato === null
+        || dato.trim().length <= 0
+        || isNaN(Number(dato))
+        || Number(dato) < limiteInferior
+        || Number(dato) > limiteSuperior) {
+        alert(mensaje);
         return null;
     }
 }
 
 /**
- * @description Valida que la cuota inicial sea menor al valor del inmueble, en caso contrario se muestra un mensaje en consola y se devuelve null.
+ * @description Valida que la cuota inicial sea menor al valor del inmueble, en caso contrario se muestra una alerta y se devuelve null.
  * @param {number} valorInmueble - Valor del inmueble.
  * @param {number} cuotaInicial - Valor de la cuota inicial.
  * @param {string} mensaje - Mensaje que se muestra en caso la cuota inicial sea mayor o igual al valor del inmueble.
@@ -99,9 +88,155 @@ const validarNumeroRango = (numero, limiteInferior, limiteSuperior, mensaje) => 
  */
 const validarCuotaInicial = (valorInmueble, cuotaInicial, mensaje) => {
     if (cuotaInicial >= valorInmueble) {
-        console.log(mensaje);
+        // console.log(mensaje);
+        alert(mensaje);
         return null;
     }
+}
+
+/**
+ * @description Solicita el valor del inmueble, si es un número valido lo devuelve y lo muestra en consola, caso contrario devuelve null.
+ * @returns {number} null o number.
+ * @example
+ * solicitarValorInmueble() // se devolverá null o un número
+ */
+const solicitarValorInmueble = () => {
+    let dato;
+    let nroIntento = 0;
+    do {
+        // Si supera el número de intentos devuelve muestra mensaje de cantidad maxima y devuelve null
+        if (nroIntento >= NRO_INTENTOS) {
+            alert(MENSAJE_MAXIMA_CANTIDAD_INTENTOS);
+            return null;
+        }
+        dato = prompt(`Ingrese el valor del inmueble. Por ejemplo: 400000`);
+        nroIntento++;
+        // Se intenta hasta que el valor ingresado por el usuario sea un número válido mayor a cero
+    }
+    while (validarNumeroMayorACero(dato, `El valor del inmueble debe ser mayor a 0.`) === null);
+    mostrarIngreso(`Valor Inmueble: ${Number(dato)}`);
+    return Number(dato);
+}
+
+/**
+ * @description Solicita la cuota inicial, si es un número valido lo devuelve y lo muestra en consola, caso contrario devuelve null.
+ * @returns {number} null o number.
+ * @example
+ * solicitarCuotaInicial(400000) // se devolverá null o un número
+ */
+const solicitarCuotaInicial = (valorInmueble) => {
+    let dato;
+    let nroIntento = 0;
+    do {
+        // Si supera el número de intentos devuelve muestra mensaje de cantidad maxima y devuelve null
+        if (nroIntento >= NRO_INTENTOS) {
+            alert(MENSAJE_MAXIMA_CANTIDAD_INTENTOS);
+            return null;
+        }
+        dato = prompt(`Ingrese la cuota inicial. Por ejemplo: 100000`);
+        nroIntento++;
+        // Se intenta hasta que el valor ingresado por el usuario sea un número válido mayor a cero
+    }
+    while (validarNumeroMayorACero(dato, `La cuota inicial debe ser mayor a 0.`) === null
+        || validarCuotaInicial(valorInmueble, Number(dato), `La cuota inicial no puede ser mayor o igual al valor del inmueble.`) === null);
+    mostrarIngreso(`Cuota Inicial: ${Number(dato)}`);
+    return Number(dato);
+}
+
+/**
+ * @description Solicita la TEA en porcentaje, si es un número valido lo devuelve y lo muestra en consola, caso contrario devuelve null.
+ * @returns {number} null o number.
+ * @example
+ * solicitarTeaPorcentaje() // se devolverá null o un número
+ */
+const solicitarTeaPorcentaje = () => {
+    let dato;
+    let nroIntento = 0;
+    do {
+        // Si supera el número de intentos devuelve muestra mensaje de cantidad maxima y devuelve null
+        if (nroIntento >= NRO_INTENTOS) {
+            alert(MENSAJE_MAXIMA_CANTIDAD_INTENTOS);
+            return null;
+        }
+        dato = prompt(`Ingrese la TEA (%). Por ejemplo: 8`);
+        nroIntento++;
+        // Se intenta hasta que el valor ingresado por el usuario sea un número válido mayor a cero
+    }
+    while (validarNumeroMayorACero(dato, `La TEA (%) debe ser mayor a 0.`) === null);
+    mostrarIngreso(`TEA: ${Number(dato)} %`);
+    return Number(dato);
+}
+
+/**
+ * @description Solicita el número de cuotas, si es un número valido lo devuelve y lo muestra en consola, caso contrario devuelve null.
+ * @returns {number} null o number.
+ * @example
+ * solicitarNroCuotas() // se devolverá null o un número
+ */
+const solicitarNroCuotas = () => {
+    let dato;
+    let nroIntento = 0;
+    do {
+        // Si supera el número de intentos devuelve muestra mensaje de cantidad maxima y devuelve null
+        if (nroIntento >= NRO_INTENTOS) {
+            alert(MENSAJE_MAXIMA_CANTIDAD_INTENTOS);
+            return null;
+        }
+        dato = prompt(`Ingrese el número de cuotas (entre ${NRO_CUOTAS_RANGO_INICIAL} y ${NRO_CUOTAS_RANGO_FINAL}). Por ejemplo: 240`);
+        nroIntento++;
+        // Se intenta hasta que el valor ingresado por el usuario sea un número válido mayor a cero
+    }
+    while (validarNumeroRango(dato, NRO_CUOTAS_RANGO_INICIAL, NRO_CUOTAS_RANGO_FINAL, `El número de cuotas debe ser entre 12 y 360.`) === null);
+    mostrarIngreso(`Nro. Cuotas: ${Number(dato)}`);
+    return Number(dato);
+}
+
+/**
+ * @description Solicita el porcentaje mensual de seguro de desgravamen, si es un número valido lo devuelve y lo muestra en consola, caso contrario devuelve null.
+ * @returns {number} null o number.
+ * @example
+ * solicitarSeguroDesgravamenMensualPorcentaje() // se devolverá null o un número
+ */
+const solicitarSeguroDesgravamenMensualPorcentaje = () => {
+    let dato;
+    let nroIntento = 0;
+    do {
+        // Si supera el número de intentos devuelve muestra mensaje de cantidad maxima y devuelve null
+        if (nroIntento >= NRO_INTENTOS) {
+            alert(MENSAJE_MAXIMA_CANTIDAD_INTENTOS);
+            return null;
+        }
+        dato = prompt(`Ingrese el porcentaje del seguro de desgravamen mensual (%). Por ejemplo: 0.03`);
+        nroIntento++;
+        // Se intenta hasta que el valor ingresado por el usuario sea un número válido mayor a cero
+    }
+    while (validarNumeroMayorACero(dato, `El porcentaje del desgravamen mensual (%) debe ser mayor a 0.`) === null);
+    mostrarIngreso(`Seguro Desgravamen Mensual: ${Number(dato)} %`);
+    return Number(dato);
+}
+
+/**
+ * @description Solicita el porcentaje del seguro del inmueble, si es un número valido lo devuelve y lo muestra en consola, caso contrario devuelve null.
+ * @returns {number} null o number.
+ * @example
+ * solicitarSeguroBienAnualPorcentaje() // se devolverá null o un número
+ */
+const solicitarSeguroBienAnualPorcentaje = () => {
+    let dato;
+    let nroIntento = 0;
+    do {
+        // Si supera el número de intentos devuelve muestra mensaje de cantidad maxima y devuelve null
+        if (nroIntento >= NRO_INTENTOS) {
+            alert(MENSAJE_MAXIMA_CANTIDAD_INTENTOS);
+            return null;
+        }
+        dato = prompt(`Ingrese el porcentaje de seguro del inmueble (%). Por ejemplo: 0.3`);
+        nroIntento++;
+        // Se intenta hasta que el valor ingresado por el usuario sea un número válido mayor a cero
+    }
+    while (validarNumeroMayorACero(dato, `El porcentaje de seguro del inmueble (%) debe ser mayor a 0.`) === null);
+    mostrarIngreso(`Seguro Inmueble: ${Number(dato)} %`);
+    return Number(dato);
 }
 
 /**
@@ -167,7 +302,7 @@ const obtenerCuotaBase = (montoCredito, tasaMensual, nroCuotas) => {
  * @param {number} basePorcentual - Base porcentual. 
  * @returns {number} Monto del seguro mensual del inmueble.
  * @example
- let seguroBienMensual = obtenerSeguroBienMensual(valorInmueble, seguroBienAnualPorcentaje, 100); // seguroBienMensual obtiene el monto del seguro mensual del inmueble
+ * let seguroBienMensual = obtenerSeguroBienMensual(valorInmueble, seguroBienAnualPorcentaje, 100); // seguroBienMensual obtiene el monto del seguro mensual del inmueble
  */
 const obtenerSeguroBienMensual = (valorInmueble, seguroBienAnualPorcentaje, basePorcentual) => {
     //Seguro del bien mensual (fijo): Se calcula con la siguiente formula (ValorBien * SegurobienAnual) / 12 donde ValorBien = valor del bien y seguroBienAnual = porcentaje del bien para asegurarlo
@@ -181,13 +316,13 @@ const obtenerSeguroBienMensual = (valorInmueble, seguroBienAnualPorcentaje, base
  * @param {number} montoCredito - Monto del crédito.
  * @param {Date} fechaDesembolso - Fecha de desembolso del crédito. 
  * @param {number} nroCuotas - Número de cuotas para el crédito. 
- * * @param {number} seguroDesgravamenMensual - Seguro de desgravamen mensual. 
- * * @param {number} cuotaBaseSinSeguros - Cuota base de la cuota. 
- * * @param {number} seguroBienMensual - Seguro del bien mensual. 
- * * @param {number} tasaMensual - TEA mensual. 
+ * @param {number} seguroDesgravamenMensual - Seguro de desgravamen mensual. 
+ * @param {number} cuotaBaseSinSeguros - Cuota base de la cuota. 
+ * @param {number} seguroBienMensual - Seguro del bien mensual. 
+ * @param {number} tasaMensual - TEA mensual. 
  * @returns {Array} Arreglo de cuotas.
  * @example
- let cuotas = simularCronograma(300000, new Date(), 240, seguroDesgravamenMensual, cuotaBase, seguroBienMensual, tasaMensual); // cuotas obtiene las cuotas del cronograma
+ * let cuotas = simularCronograma(300000, new Date(), 240, seguroDesgravamenMensual, cuotaBase, seguroBienMensual, tasaMensual); // cuotas obtiene las cuotas del cronograma
  */
 const simularCronograma = (montoCredito, fechaDesembolso, nroCuotas, seguroDesgravamenMensual, cuotaBaseSinSeguros, seguroBienMensual, tasaMensual) => {
     const cuotas = [];
@@ -237,7 +372,7 @@ const simularCronograma = (montoCredito, fechaDesembolso, nroCuotas, seguroDesgr
  * @description Muestra las cuotas del crédito hipotecario por consola.
  * @param {Array} cuotas - Array con todas las cuotas de un cronograma.
  * @example
- mostrarCronograma(cuotas);
+ * mostrarCronograma(cuotas);
  */
 const mostrarCronograma = (cuotas) => {
     console.log(`\nSIMULACIÓN DE CUOTAS\n`);
@@ -247,7 +382,7 @@ const mostrarCronograma = (cuotas) => {
 /**
  * @description Ejecuta todo el código del simulador.
  * @example
- app();
+ * app();
  */
 const app = () => {
 
@@ -263,6 +398,7 @@ const app = () => {
     let simularConDatosPrueba = confirm(`¿Desea simular el cronograma con datos de prueba?`);
     console.log(`DATOS DEL CRÉDITO HIPOTECARIO`);
     if (simularConDatosPrueba) {
+        // Se asignan valores predeterminados para generar rápidamente un cronograma del crédito hipotecario
         valorInmueble = Number(400000);
         mostrarIngreso(`Valor Inmueble: ${valorInmueble}`);
         cuotaInicial = Number(100000);
@@ -277,35 +413,29 @@ const app = () => {
         mostrarIngreso(`Seguro Inmueble: ${seguroBienAnualPorcentaje} %`);
     }
     else {
-        valorInmueble = ingresarNumero(`Ingrese el valor del inmueble. Por ejemplo: 400000`);
-        if (validarIngreso(valorInmueble, `Valor Inmueble: ${valorInmueble}`) === null
-            || validarNumeroMayorACero(valorInmueble, `El valor del inmueble debe ser mayor a 0.`) === null) {
+        // Se solicitan todos los datos necesarios para simular el cronograma del crédito hipotecario
+        valorInmueble = solicitarValorInmueble();
+        if (valorInmueble === null) {
             return;
         }
-        cuotaInicial = ingresarNumero(`Ingrese la cuota inicial. Por ejemplo: 100000`);
-        if (validarIngreso(cuotaInicial, `Cuota Inicial: ${cuotaInicial}`) === null
-            || validarNumeroMayorACero(cuotaInicial, `La cuota inicial debe ser mayor a 0.`) === null
-            || validarCuotaInicial(valorInmueble, cuotaInicial, `La cuota inicial no puede ser mayor o igual al valor del inmueble.`) === null) {
+        cuotaInicial = solicitarCuotaInicial(valorInmueble);
+        if (cuotaInicial === null) {
             return;
         }
-        teaPorcentaje = ingresarNumero(`Ingrese la TEA (%). Por ejemplo: 8`);
-        if (validarIngreso(teaPorcentaje, `TEA: ${teaPorcentaje} %`) === null
-            || validarNumeroMayorACero(teaPorcentaje, `La TEA (%) debe ser mayor a 0.`) === null) {
+        teaPorcentaje = solicitarTeaPorcentaje();
+        if (teaPorcentaje === null) {
             return;
         }
-        nroCuotas = ingresarNumero(`Ingrese el número de cuotas (entre ${NRO_CUOTAS_RANGO_INICIAL} y ${NRO_CUOTAS_RANGO_FINAL}). Por ejemplo: 240`);
-        if (validarIngreso(nroCuotas, `Nro. Cuotas: ${nroCuotas}`) === null
-            || validarNumeroRango(nroCuotas, NRO_CUOTAS_RANGO_INICIAL, NRO_CUOTAS_RANGO_FINAL, `El número de cuotas debe ser entre 12 y 360).`) === null) {
+        nroCuotas = solicitarNroCuotas();
+        if (nroCuotas === null) {
             return;
         }
-        seguroDesgravamenMensualPorcentaje = ingresarNumero(`Ingrese el porcentaje del seguro de desgravamen mensual (%). Por ejemplo: 0.03`);
-        if (validarIngreso(seguroDesgravamenMensualPorcentaje, `Seguro Desgravamen Mensual: ${seguroDesgravamenMensualPorcentaje} %`) === null
-            || validarNumeroMayorACero(seguroDesgravamenMensualPorcentaje, `El porcentaje del desgravamen mensual (%) debe ser mayor a 0.`) === null) {
+        seguroDesgravamenMensualPorcentaje = solicitarSeguroDesgravamenMensualPorcentaje();
+        if (seguroDesgravamenMensualPorcentaje === null) {
             return;
         }
-        seguroBienAnualPorcentaje = ingresarNumero(`Ingrese el porcentaje de seguro del inmueble (%). Por ejemplo: 0.3`);
-        if (validarIngreso(seguroBienAnualPorcentaje, `Seguro Inmueble: ${seguroBienAnualPorcentaje} %`) === null
-            || validarNumeroMayorACero(seguroBienAnualPorcentaje, `El porcentaje de seguro del inmueble (%) debe ser mayor a 0.`) === null) {
+        seguroBienAnualPorcentaje = solicitarSeguroBienAnualPorcentaje();
+        if (seguroBienAnualPorcentaje === null) {
             return;
         }
     }
