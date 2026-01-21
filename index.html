@@ -10,9 +10,8 @@
 
 <body>
     <h1>Proyecto: Simulador de Crédito Hipotecario</h1>
-    <p>El simulador genera un cronograma de pago en base a los datos ingresados (correspondientes a un crédito
-        hipotecario
-        estándar).</p>
+    <p>El simulador genera un cronograma de pago en base a los datos ingresados (basado en un crédito
+        hipotecario estándar).</p>
     <p>Los datos necesarios para la simulación son:</p>
     <ul>
         <li><b>Valor del inmueble:</b> Valor del inmueble. Debe ser mayor a 0.</li>
@@ -25,14 +24,14 @@
         </li>
         <li><b>Seguro del bien (% anual):</b> Porcentaje anual del seguro del bien. Debe ser mayor a 0.</li>
     </ul>
-    <p>Los resultados son:</p>
+    <p>Cada cuota del cronograma esta compuesto por:</p>
     <ul>
         <li><b>Nro. cuota:</b> Número de cuota.</li>
         <li><b>Fecha de vencimiento:</b> Fecha en la que vence la cuota.</li>
         <li><b>Amortización:</b> Monto que representa el capital de la cuota.</li>
         <li><b>Interés:</b> Monto que representa el interés de la cuota.</li>
         <li><b>Seguro de desgravamen:</b> Monto que representa el seguro de desgravamen de la cuota.</li>
-        <li><b>Seguro del bien:</b> Monto que representa el seguro asociado al bien.</li>
+        <li><b>Seguro del bien:</b> Monto que representa el seguro a todo riesgo para el inmueble.</li>
         <li><b>Monto cuota:</b> Monto de la cuota.</li>
         <li><b>Seguro del capital:</b> Monto que representa el saldo de capital luego de cancelada la cuota.</li>
     </ul>
@@ -43,7 +42,7 @@
             <b>Console</b>.
         </li>
         <li>El simulador pregunta <b>¿Desea simular el cronograma con datos de prueba?</b> Responder <b>Aceptar</b> para
-            simular con datos preseleccionados o <b>Cancelar</b> para ingresar los datos.</li>
+            simular con datos predeterminados o <b>Cancelar</b> para ingresar datos para el cálculo.</li>
         <li>En caso de haber seleccionado <b>Cancelar</b> en el paso anterior, se solicitarán todos los datos necesarios
             para la simulación del cronograma.</li>
         <li>Después de haber ingresado los datos se generará el cronograma y se mostrará en una tabla por la
