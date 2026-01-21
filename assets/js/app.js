@@ -39,7 +39,7 @@ const mostrarIngreso = (cadena) => {
 }
 
 /**
- * @description Muestra una alerta en caso un dato sea null, caso contrario se mostrará la cadena en consola.
+ * @description Muestra una alerta de maximo número de intentos en caso el dato sea null, caso contrario se mostrará la cadena en consola.
  * @param {string} dato - Dato a validar.
  * @param {string} cadena - Mensaje que se muestra en caso el dato sea diferente de null.
  * @returns {null} null o nada.
@@ -95,7 +95,7 @@ const validarNumeroRango = (numero, limiteInferior, limiteSuperior, mensaje) => 
  * @param {string} mensaje - Mensaje que se muestra en caso la cuota inicial sea mayor o igual al valor del inmueble.
  * @returns {null} null o nada.
  * @example
- * validarCuotaInicial(valorInmueble, cuotaInicial, `La cuota inicial no puede ser mayor o igual al valor del inmueble.`) // se devolverá null o nada
+ * validarCuotaInicial(400000, 100000, `La cuota inicial no puede ser mayor o igual al valor del inmueble.`) // se devolverá null o nada
  */
 const validarCuotaInicial = (valorInmueble, cuotaInicial, mensaje) => {
     if (cuotaInicial >= valorInmueble) {
@@ -108,9 +108,9 @@ const validarCuotaInicial = (valorInmueble, cuotaInicial, mensaje) => {
  * @description Obtiene el monto del crédito a ser financiado.
  * @param {number} valorInmueble - Valor del inmueble.
  * @param {number} cuotaInicial - Valor de la cuota inicial. 
- * @returns {number} Resta el valor del inmueble menos la cuota inicial.
+ * @returns {number} Resta del inmueble menos la cuota inicial.
  * @example
- * let montoCredito = obtenerMontoCredito(valorInmueble, cuotaInicial); // montoCredito obtiene el monto del crédito
+ * let montoCredito = obtenerMontoCredito(valorInmueble, cuotaInicial); // montoCredito obtiene el monto a ser financiado
  */
 const obtenerMontoCredito = (valorInmueble, cuotaInicial) => {
     let montoCredito = valorInmueble - cuotaInicial;
@@ -121,7 +121,7 @@ const obtenerMontoCredito = (valorInmueble, cuotaInicial) => {
  * @description Obtiene el seguro de desgravamen mensual entre la base porcentual.
  * @param {number} seguroDesgravamenMensualPorcentaje - Porcentaje del seguro de desgravamen mensual.
  * @param {number} basePorcentual - Base porcentual (100). 
- * @returns {number} Divide el seguro de desgravamen mensual entre la base porcentual (100).
+ * @returns {number} División del seguro de desgravamen mensual entre la base porcentual (100).
  * @example
  * let seguroDesgravamenMensual = obtenerSeguroDesgravamenMensual(0.03, 100); // seguroDesgravamenMensual obtiene el seguro de desgravamen mensual entre 100
  */
@@ -136,7 +136,7 @@ const obtenerSeguroDesgravamenMensual = (seguroDesgravamenMensualPorcentaje, bas
  * @param {number} basePorcentual - Base porcentual (100). 
  * @returns {number} TEA mensual.
  * @example
- * let tasaMensual = obtenerTeaMensual(8, 100); // tasaMensual obtiene la TEA aplicada en un mes
+ * let tasaMensual = obtenerTeaMensual(8, 100); // tasaMensual obtiene la TEA en un mes
  */
 const obtenerTeaMensual = (teaPorcentaje, basePorcentual) => {
     //Tasa mensual (TEA → TEM): Se calcula con la siguiente formula i=(1+TEA)^1/12−1; donde TEA = TEA en porcentaje
@@ -146,13 +146,13 @@ const obtenerTeaMensual = (teaPorcentaje, basePorcentual) => {
 }
 
 /**
- * @description Obtiene la cuota base (sin intereses, seguro, ni otros conceptos).
+ * @description Obtiene la cuota base (sin intereses, sin seguro, ni otros conceptos).
  * @param {number} montoCredito - Monto del crédito.
  * @param {number} tasaMensual - TEA mensual. 
  * @param {number} nroCuotas - Número de cuotas para el crédito. 
  * @returns {number} Cuota base.
  * @example
- * let cuotaBase = obtenerCuotaBase(montoCredito, tasaMensual, nroCuotas); // cuotaBase obtiene el capital de la cuota 
+ * let cuotaBase = obtenerCuotaBase(montoCredito, tasaMensual, nroCuotas); // cuotaBase obtiene el monto capital de cada cuota 
  */
 const obtenerCuotaBase = (montoCredito, tasaMensual, nroCuotas) => {
     //Cuota base sin seguros: Se calcula con la siguiente formula CuotaBase=P * i(1+i)^n / (1+i)^n−1​ donde P = monto, i = interés por periodo y n = número de cuotas
@@ -161,13 +161,13 @@ const obtenerCuotaBase = (montoCredito, tasaMensual, nroCuotas) => {
 }
 
 /**
- * @description Obtiene la cuota base (sin intereses, seguro, ni otros conceptos).
- * @param {number} valorInmueble - Monto del crédito.
- * @param {number} seguroBienAnualPorcentaje - TEA mensual. 
- * @param {number} basePorcentual - Número de cuotas para el crédito. 
- * @returns {number} Cuota base.
+ * @description Obtiene el monto del seguro mensual del inmueble.
+ * @param {number} valorInmueble - Valor del inmueble.
+ * @param {number} seguroBienAnualPorcentaje - Tasa anual del seguro del bien. 
+ * @param {number} basePorcentual - Base porcentual. 
+ * @returns {number} Monto del seguro mensual del inmueble.
  * @example
- let seguroBienMensual = obtenerSeguroBienMensual(valorInmueble, seguroBienAnualPorcentaje, 100); // cuotaBase obtiene el capital de la cuota 
+ let seguroBienMensual = obtenerSeguroBienMensual(valorInmueble, seguroBienAnualPorcentaje, 100); // seguroBienMensual obtiene el monto del seguro mensual del inmueble
  */
 const obtenerSeguroBienMensual = (valorInmueble, seguroBienAnualPorcentaje, basePorcentual) => {
     //Seguro del bien mensual (fijo): Se calcula con la siguiente formula (ValorBien * SegurobienAnual) / 12 donde ValorBien = valor del bien y seguroBienAnual = porcentaje del bien para asegurarlo
@@ -179,29 +179,38 @@ const obtenerSeguroBienMensual = (valorInmueble, seguroBienAnualPorcentaje, base
 /**
  * @description Genera el cronograma de cuotas del crédito hipotecario.
  * @param {number} montoCredito - Monto del crédito.
- * @param {Date} fechaDesembolso - Fecha de desembolso del crédito (es la fecha de simulación). 
+ * @param {Date} fechaDesembolso - Fecha de desembolso del crédito. 
  * @param {number} nroCuotas - Número de cuotas para el crédito. 
  * * @param {number} seguroDesgravamenMensual - Seguro de desgravamen mensual. 
  * * @param {number} cuotaBaseSinSeguros - Cuota base de la cuota. 
  * * @param {number} seguroBienMensual - Seguro del bien mensual. 
  * * @param {number} tasaMensual - TEA mensual. 
- * @returns {Array} Cuotas.
+ * @returns {Array} Arreglo de cuotas.
  * @example
- let cuotas = simularCronograma(montoCredito, fechaDesembolso, nroCuotas, seguroDesgravamenMensual, cuotaBase, seguroBienMensual, tasaMensual); // cuotas obtiene las cuotas del cronograma
+ let cuotas = simularCronograma(300000, new Date(), 240, seguroDesgravamenMensual, cuotaBase, seguroBienMensual, tasaMensual); // cuotas obtiene las cuotas del cronograma
  */
 const simularCronograma = (montoCredito, fechaDesembolso, nroCuotas, seguroDesgravamenMensual, cuotaBaseSinSeguros, seguroBienMensual, tasaMensual) => {
     const cuotas = [];
+    // Antes de iniciar la simulación el saldo de capital es el monto total del crédito
     let saldoCapitalAnterior = montoCredito;
+    // Antes de iniciar la simulación la fecha de vencimiento es la fecha de desembolso
     let fechaVencimientoAnterior = fechaDesembolso;
+    // Se itera por la cantidad de cuotas
     for (let nroCuota = 1; nroCuota <= nroCuotas; nroCuota++) {
-
+        // Se calcula el monto del seguro de desgravamen
         let seguroDesgravamen = saldoCapitalAnterior * seguroDesgravamenMensual;
+        // Se calcula el monto total de la cuota
         let montoCuota = cuotaBaseSinSeguros + seguroDesgravamen + seguroBienMensual;
+        // Se calcula el interes de la cuota
         let interes = saldoCapitalAnterior * tasaMensual;
+        // Se calcula el capital de la cuota
         let amortizacion = cuotaBaseSinSeguros - interes;
+        // Se calcula el saldo capital despues de pagada la cuota
         let saldoCapital = saldoCapitalAnterior - amortizacion;
+        // Se calcula la fecha de vencimiento de la cuota
         let fechaVencimiento = new Date(new Date(fechaVencimientoAnterior).setMonth(fechaVencimientoAnterior.getMonth() + 1));
 
+        // Se crea el objeto cuota
         const cuota = {
             nroCuota: nroCuota,
             fechaVencimiento: fechaVencimiento,
@@ -213,9 +222,12 @@ const simularCronograma = (montoCredito, fechaDesembolso, nroCuotas, seguroDesgr
             saldoCapital: saldoCapital
         };
 
+        // Se agrega al arreglo de cuotas
         cuotas.push(cuota);
 
+        // Se actualiza el saldo capital para el calculo de la siguiente iteración
         saldoCapitalAnterior = saldoCapital;
+        // Se actualiza la fecha de vencimiento para el calculo de la siguiente iteración
         fechaVencimientoAnterior = fechaVencimiento;
     }
     return cuotas;
@@ -223,7 +235,7 @@ const simularCronograma = (montoCredito, fechaDesembolso, nroCuotas, seguroDesgr
 
 /**
  * @description Muestra las cuotas del crédito hipotecario por consola.
- * @param {Array} cuotas - Monto del crédito.
+ * @param {Array} cuotas - Array con todas las cuotas de un cronograma.
  * @example
  mostrarCronograma(cuotas);
  */
@@ -242,6 +254,7 @@ const app = () => {
     let cuotaInicial;
     let teaPorcentaje;
     let nroCuotas;
+    // La fecha de desembolso es la fecha en la que se simula el cronograma
     let fechaDesembolso = new Date();
     let seguroDesgravamenMensualPorcentaje;
     let valorInmueble;
@@ -266,33 +279,33 @@ const app = () => {
     else {
         valorInmueble = ingresarNumero(`Ingrese el valor del inmueble. Por ejemplo: 400000`);
         if (validarIngreso(valorInmueble, `Valor Inmueble: ${valorInmueble}`) === null
-            || validarNumeroMayorACero(valorInmueble, `El valor del inmueble debe ser mayor a 0.`)) {
+            || validarNumeroMayorACero(valorInmueble, `El valor del inmueble debe ser mayor a 0.`) === null) {
             return;
         }
         cuotaInicial = ingresarNumero(`Ingrese la cuota inicial. Por ejemplo: 100000`);
         if (validarIngreso(cuotaInicial, `Cuota Inicial: ${cuotaInicial}`) === null
-            || validarNumeroMayorACero(cuotaInicial, `La cuota inicial debe ser mayor a 0.`)
-            || validarCuotaInicial(valorInmueble, cuotaInicial, `La cuota inicial no puede ser mayor o igual al valor del inmueble.`)) {
+            || validarNumeroMayorACero(cuotaInicial, `La cuota inicial debe ser mayor a 0.`) === null
+            || validarCuotaInicial(valorInmueble, cuotaInicial, `La cuota inicial no puede ser mayor o igual al valor del inmueble.`) === null) {
             return;
         }
         teaPorcentaje = ingresarNumero(`Ingrese la TEA (%). Por ejemplo: 8`);
         if (validarIngreso(teaPorcentaje, `TEA: ${teaPorcentaje} %`) === null
-            || validarNumeroMayorACero(teaPorcentaje, `La TEA (%) debe ser mayor a 0.`)) {
+            || validarNumeroMayorACero(teaPorcentaje, `La TEA (%) debe ser mayor a 0.`) === null) {
             return;
         }
         nroCuotas = ingresarNumero(`Ingrese el número de cuotas (entre ${NRO_CUOTAS_RANGO_INICIAL} y ${NRO_CUOTAS_RANGO_FINAL}). Por ejemplo: 240`);
         if (validarIngreso(nroCuotas, `Nro. Cuotas: ${nroCuotas}`) === null
-            || validarNumeroRango(nroCuotas, NRO_CUOTAS_RANGO_INICIAL, NRO_CUOTAS_RANGO_FINAL, `El número de cuotas debe ser entre 12 y 360).`)) {
+            || validarNumeroRango(nroCuotas, NRO_CUOTAS_RANGO_INICIAL, NRO_CUOTAS_RANGO_FINAL, `El número de cuotas debe ser entre 12 y 360).`) === null) {
             return;
         }
         seguroDesgravamenMensualPorcentaje = ingresarNumero(`Ingrese el porcentaje del seguro de desgravamen mensual (%). Por ejemplo: 0.03`);
         if (validarIngreso(seguroDesgravamenMensualPorcentaje, `Seguro Desgravamen Mensual: ${seguroDesgravamenMensualPorcentaje} %`) === null
-            || validarNumeroMayorACero(seguroDesgravamenMensualPorcentaje, `El porcentaje del desgravamen mensual (%) debe ser mayor a 0.`)) {
+            || validarNumeroMayorACero(seguroDesgravamenMensualPorcentaje, `El porcentaje del desgravamen mensual (%) debe ser mayor a 0.`) === null) {
             return;
         }
         seguroBienAnualPorcentaje = ingresarNumero(`Ingrese el porcentaje de seguro del inmueble (%). Por ejemplo: 0.3`);
         if (validarIngreso(seguroBienAnualPorcentaje, `Seguro Inmueble: ${seguroBienAnualPorcentaje} %`) === null
-            || validarNumeroMayorACero(seguroBienAnualPorcentaje, `El porcentaje de seguro del inmueble (%) debe ser mayor a 0.`)) {
+            || validarNumeroMayorACero(seguroBienAnualPorcentaje, `El porcentaje de seguro del inmueble (%) debe ser mayor a 0.`) === null) {
             return;
         }
     }
