@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1>Proyecto: Simulador de Crédito Hipotecario</h1>
+    <!-- <h1>Proyecto: Simulador de Crédito Hipotecario</h1>
     <p>El simulador genera un cronograma de pago en base a los datos ingresados (basado en un crédito
         hipotecario estándar).</p>
     <p>Los datos necesarios para la simulación son:</p>
@@ -48,8 +48,52 @@
         <li>Después de haber ingresado los datos se generará el cronograma y se mostrará en una tabla por la
             <b>Console</b>.
         </li>
-    </ol>
-    <script src="/assets/js/app.js"></script>
+    </ol> -->
+    <header></header>
+    <main>
+        <h1>Simulador de Crédito Hipotecario</h1>
+        <section>
+            <h2>Filtros</h2>
+            <form>
+                <div>
+                    <label></label>
+                </div>
+            </form>
+        </section>
+        <section>
+            <div>
+                <button id="agregarCredito">Agregar simulación de crédito</button>
+            </div>
+            <h2>Resultados</h2>
+            <div id="resultadosCreditos">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Id</td>
+                            <td>Fecha / Hora</td>
+                            <td>Valor Inmueble</td>
+                            <td>Cuota Inicial</td>
+                            <td>TEA (%)</td>
+                            <td>Nro. Cuotas</td>
+                            <td>Seguro Desgravamen Mensual (%)</td>
+                            <td>Seguro Inmueble (%)</td>
+                            <td>Fecha Desembolso</td>
+                            <td>Simular</td>
+                        </tr>
+                    </thead>
+                    <tbody id="filasCreditos">
+
+                    </tbody>
+                    <thead>
+
+                    </thead>
+                </table>
+            </div>
+        </section>
+    </main>
+    <footer></footer>
+    <script src="assets/js/base.js"></script>
+    <script src="assets/js/index.js"></script>
 </body>
 
 </html>

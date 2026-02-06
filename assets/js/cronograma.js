@@ -1,33 +1,5 @@
-const BASE_100_PORCENTUAL = 100;
 const NRO_CUOTAS_RANGO_INICIAL = 12;
 const NRO_CUOTAS_RANGO_FINAL = 360;
-
-const formatLocalDate = (date) => {
-    if (!(date instanceof Date)) return "";
-    const dateParsed = new Date(date);
-    const year = dateParsed.getFullYear();
-    //getMonth() empieza con el indice en 0, por eso es necesario agregar 1
-    const month = String(dateParsed.getMonth() + 1).padStart(2, "0");
-    const day = String(dateParsed.getDay()).padStart(2, "0");
-    return `${day}/${month}/${year}`;
-}
-
-/**
- * @description Valida que el numero sea mayor a 0, si es así devuelve true, caso contrario devuelve false.
- * @param {string} dato - Número a validar. 
- * @returns {boolean} true o false.
- * @example
- * validarNumeroMayorACero(400000) // se devolverá true o false
- */
-const validarNumeroMayorACero = (dato) => {
-    if (dato === null
-        || dato.trim().length <= 0
-        || isNaN(Number(dato))
-        || Number(dato) <= 0) {
-        return false;
-    }
-    return true;
-}
 
 /**
  * @description Valida que la cuota inicial sea menor al valor del inmueble, si es así devuelve true, caso contrario devuelve false.
@@ -35,7 +7,7 @@ const validarNumeroMayorACero = (dato) => {
  * @param {number} cuotaInicial - Valor de la cuota inicial.
  * @returns {boolean} true o false.
  * @example
- * validarCuotaInicial(400000, 100000) // se devolverá true o false
+ * validarCuotaInicial(400000, 100000) // se devolverá true
  */
 const validarCuotaInicial = (valorInmueble, cuotaInicial) => {
     if (cuotaInicial >= valorInmueble) {
@@ -45,82 +17,11 @@ const validarCuotaInicial = (valorInmueble, cuotaInicial) => {
 }
 
 /**
- * @description Valida que un numero este en un rango de números (limiteInferior y limiteSuperior), si es así devuelve true, caso contrario devuelve false.
- * @param {number} numero - Número a validar.
- * @param {number} limiteInferior - Número inferior a validar.
- * @param {number} limiteSuperior - Número superior a validar.
- * @returns {boolean} true o false.
+ * @description Obtiene el valor ingresado en la caja de texto valorInmueble.
+ * @returns {DataEntry} Se retorna el dato obtenido en la caja de texto, si es válido o no y uno o varios mensajes en caso sea inválido.
  * @example
- * validarNumeroRango(240, 12, 360) // se devolverá true o false
+ * obtenerValorInmueble() // se devolverá el objeto DataEntry
  */
-const validarNumeroRango = (dato, limiteInferior, limiteSuperior) => {
-    if (dato === null
-        || dato.trim().length <= 0
-        || isNaN(Number(dato))
-        || Number(dato) < limiteInferior
-        || Number(dato) > limiteSuperior) {
-        return false;
-    }
-    return true;
-}
-
-class DataEntry {
-    constructor(dato, valido) {
-        this.dato = dato;
-        this.valido = valido;
-        this.mensajes = [];
-    }
-
-    agregarMensaje(mensaje) {
-        this.mensajes.push(mensaje);
-    }
-}
-
-class Cuota {
-    constructor(nroCuota, fechaVencimiento, amortizacion, interes, seguroDesgravamen, seguroBien, montoCuota, saldoCapital) {
-        this.nroCuota = nroCuota;
-        this.fechaVencimiento = fechaVencimiento;
-        this.amortizacion = amortizacion;
-        this.interes = interes;
-        this.seguroDesgravamen = seguroDesgravamen;
-        this.seguroBien = seguroBien;
-        this.montoCuota = montoCuota;
-        this.saldoCapital = saldoCapital;
-    }
-
-    get fechaVencimientoFormat() {
-        return formatLocalDate(this.fechaVencimiento);
-    }
-
-    get amortizacionFixed() {
-        return Number(this.amortizacion).toFixed(2);
-    }
-
-    get interesFixed() {
-        return Number(this.interes).toFixed(2);
-    }
-
-    get seguroDesgravamenFixed() {
-        return Number(this.seguroDesgravamen).toFixed(2);
-    }
-
-    get seguroBienFixed() {
-        return Number(this.seguroBien).toFixed(2);
-    }
-
-    get montoCuotaFixed() {
-        return Number(this.montoCuota).toFixed(2);
-    }
-
-    get saldoCapitalFixed() {
-        return Number(this.saldoCapital).toFixed(2);
-    }
-}
-
-class Simulador {
-
-}
-
 const obtenerValorInmueble = () => {
     const valorInmueble = document.getElementById("valorInmueble");
     const dataEntry = new DataEntry(valorInmueble.value, false);
@@ -134,6 +35,12 @@ const obtenerValorInmueble = () => {
     return dataEntry;
 }
 
+/**
+ * @description Obtiene el valor ingresado en la caja de texto cuotaInicial.
+ * @returns {DataEntry} Se retorna el dato obtenido en la caja de texto, si es válido o no y uno o varios mensajes en caso sea inválido.
+ * @example
+ * obtenerCuotaInicial() // se devolverá el objeto DataEntry
+ */
 const obtenerCuotaInicial = (valorInmueble) => {
     const cuotaInicial = document.getElementById("cuotaInicial");
     const dataEntry = new DataEntry(cuotaInicial.value, false);
@@ -150,6 +57,12 @@ const obtenerCuotaInicial = (valorInmueble) => {
     return dataEntry;
 }
 
+/**
+ * @description Obtiene el valor ingresado en la caja de texto tea.
+ * @returns {DataEntry} Se retorna el dato obtenido en la caja de texto, si es válido o no y uno o varios mensajes en caso sea inválido.
+ * @example
+ * obtenerTeaPorcentaje() // se devolverá el objeto DataEntry
+ */
 const obtenerTeaPorcentaje = () => {
     const tea = document.getElementById("tea");
     const dataEntry = new DataEntry(tea.value, false);
@@ -163,6 +76,12 @@ const obtenerTeaPorcentaje = () => {
     return dataEntry;
 }
 
+/**
+ * @description Obtiene el valor ingresado en la caja de texto nroCuotas.
+ * @returns {DataEntry} Se retorna el dato obtenido en la caja de texto, si es válido o no y uno o varios mensajes en caso sea inválido.
+ * @example
+ * obtenerNroCuotas() // se devolverá el objeto DataEntry
+ */
 const obtenerNroCuotas = () => {
     const nroCuotas = document.getElementById("nroCuotas");
     const dataEntry = new DataEntry(nroCuotas.value, false);
@@ -176,6 +95,12 @@ const obtenerNroCuotas = () => {
     return dataEntry;
 }
 
+/**
+ * @description Obtiene el valor ingresado en la caja de texto seguroDesgravamenMensual.
+ * @returns {DataEntry} Se retorna el dato obtenido en la caja de texto, si es válido o no y uno o varios mensajes en caso sea inválido.
+ * @example
+ * obtenerSeguroDesgravamenMensualPorcentaje() // se devolverá el objeto DataEntry
+ */
 const obtenerSeguroDesgravamenMensualPorcentaje = () => {
     const seguroDesgravamenMensual = document.getElementById("seguroDesgravamenMensual");
     const dataEntry = new DataEntry(seguroDesgravamenMensual.value, false);
@@ -189,6 +114,12 @@ const obtenerSeguroDesgravamenMensualPorcentaje = () => {
     return dataEntry;
 }
 
+/**
+ * @description Obtiene el valor ingresado en la caja de texto seguroInmueble.
+ * @returns {DataEntry} Se retorna el dato obtenido en la caja de texto, si es válido o no y uno o varios mensajes en caso sea inválido.
+ * @example
+ * obtenerSeguroBienAnualPorcentaje() // se devolverá el objeto DataEntry
+ */
 const obtenerSeguroBienAnualPorcentaje = () => {
     const seguroInmueble = document.getElementById("seguroInmueble");
     const dataEntry = new DataEntry(seguroInmueble.value, false);
@@ -203,77 +134,10 @@ const obtenerSeguroBienAnualPorcentaje = () => {
 }
 
 /**
- * @description Obtiene el monto del crédito a ser financiado.
- * @param {number} valorInmueble - Valor del inmueble.
- * @param {number} cuotaInicial - Valor de la cuota inicial. 
- * @returns {number} Resta del inmueble menos la cuota inicial.
+ * @description Muestra mensajes si el objeto DataEntry tiene uno o mas mensajes.
  * @example
- * let montoCredito = obtenerMontoCredito(valorInmueble, cuotaInicial); // montoCredito obtiene el monto a ser financiado
+ * mostrarMensajeError(dataEntry)
  */
-const obtenerMontoCredito = (valorInmueble, cuotaInicial) => {
-    let montoCredito = valorInmueble - cuotaInicial;
-    return montoCredito;
-}
-
-/**
- * @description Obtiene el seguro de desgravamen mensual entre la base porcentual.
- * @param {number} seguroDesgravamenMensualPorcentaje - Porcentaje del seguro de desgravamen mensual.
- * @param {number} basePorcentual - Base porcentual (100). 
- * @returns {number} División del seguro de desgravamen mensual entre la base porcentual (100).
- * @example
- * let seguroDesgravamenMensual = obtenerSeguroDesgravamenMensual(0.03, 100); // seguroDesgravamenMensual obtiene el seguro de desgravamen mensual entre 100
- */
-const obtenerSeguroDesgravamenMensual = (seguroDesgravamenMensualPorcentaje, basePorcentual) => {
-    let seguroDesgravamenMensual = seguroDesgravamenMensualPorcentaje / basePorcentual;
-    return seguroDesgravamenMensual;
-}
-
-/**
- * @description Obtiene la TEA mensual.
- * @param {number} teaPorcentaje - Porcentaje de la TEA.
- * @param {number} basePorcentual - Base porcentual (100). 
- * @returns {number} TEA mensual.
- * @example
- * let tasaMensual = obtenerTeaMensual(8, 100); // tasaMensual obtiene la TEA en un mes
- */
-const obtenerTeaMensual = (teaPorcentaje, basePorcentual) => {
-    //Tasa mensual (TEA → TEM): Se calcula con la siguiente formula i=(1+TEA)^1/12−1; donde TEA = TEA en porcentaje
-    let tea = teaPorcentaje / basePorcentual;
-    let tasaMensual = ((1 + tea) ** (1 / 12)) - 1;
-    return tasaMensual;
-}
-
-/**
- * @description Obtiene la cuota base (sin intereses, sin seguro, ni otros conceptos).
- * @param {number} montoCredito - Monto del crédito.
- * @param {number} tasaMensual - TEA mensual. 
- * @param {number} nroCuotas - Número de cuotas para el crédito. 
- * @returns {number} Cuota base.
- * @example
- * let cuotaBase = obtenerCuotaBase(montoCredito, tasaMensual, nroCuotas); // cuotaBase obtiene el monto capital de cada cuota 
- */
-const obtenerCuotaBase = (montoCredito, tasaMensual, nroCuotas) => {
-    //Cuota base sin seguros: Se calcula con la siguiente formula CuotaBase=P * i(1+i)^n / (1+i)^n−1​ donde P = monto, i = interés por periodo y n = número de cuotas
-    let cuotaBaseSinSeguros = montoCredito * tasaMensual * ((1 + tasaMensual) ** nroCuotas) / (((1 + tasaMensual) ** nroCuotas) - 1);
-    return cuotaBaseSinSeguros;
-}
-
-/**
- * @description Obtiene el monto del seguro mensual del inmueble.
- * @param {number} valorInmueble - Valor del inmueble.
- * @param {number} seguroBienAnualPorcentaje - Tasa anual del seguro del bien. 
- * @param {number} basePorcentual - Base porcentual. 
- * @returns {number} Monto del seguro mensual del inmueble.
- * @example
- * let seguroBienMensual = obtenerSeguroBienMensual(valorInmueble, seguroBienAnualPorcentaje, 100); // seguroBienMensual obtiene el monto del seguro mensual del inmueble
- */
-const obtenerSeguroBienMensual = (valorInmueble, seguroBienAnualPorcentaje, basePorcentual) => {
-    //Seguro del bien mensual (fijo): Se calcula con la siguiente formula (ValorBien * SegurobienAnual) / 12 donde ValorBien = valor del bien y seguroBienAnual = porcentaje del bien para asegurarlo
-    let seguroBienAnual = seguroBienAnualPorcentaje / basePorcentual;
-    let seguroBienMensualFijo = (valorInmueble * seguroBienAnual) / 12;
-    return seguroBienMensualFijo;
-}
-
 const mostrarMensajeError = (dataEntry) => {
     if (!dataEntry.valido) {
         dataEntry.mensajes.forEach((mensaje) => {
@@ -282,10 +146,14 @@ const mostrarMensajeError = (dataEntry) => {
             mensajeLi.innerText = mensaje;
             listaMensajes.appendChild(mensajeLi);
         });
-        // const panelMensajes = document.getElementById("panelMensajes");
     }
 }
 
+/**
+ * @description Elimina la lista de mensajes si hubiera.
+ * @example
+ * eliminarMensajesError()
+ */
 const eliminarMensajesError = () => {
     const listaMensajes = document.querySelectorAll("li");
     listaMensajes.forEach((mensaje) => {
@@ -293,6 +161,11 @@ const eliminarMensajesError = () => {
     });
 }
 
+/**
+ * @description Elimina las filas de la tabla si hubiera.
+ * @example
+ * eliminarFilasResultado()
+ */
 const eliminarFilasResultado = () => {
     const filas = document.querySelectorAll("tbody tr");
     filas.forEach((fila) => {
@@ -301,71 +174,12 @@ const eliminarFilasResultado = () => {
 }
 
 /**
- * @description Genera el cronograma de cuotas del crédito hipotecario.
- * @param {number} montoCredito - Monto del crédito.
- * @param {Date} fechaDesembolso - Fecha de desembolso del crédito. 
- * @param {number} nroCuotas - Número de cuotas para el crédito. 
- * @param {number} seguroDesgravamenMensual - Seguro de desgravamen mensual. 
- * @param {number} cuotaBaseSinSeguros - Cuota base de la cuota. 
- * @param {number} seguroBienMensual - Seguro del bien mensual. 
- * @param {number} tasaMensual - TEA mensual. 
- * @returns {Array} Arreglo de cuotas.
- * @example
- * let cuotas = simularCronograma(300000, new Date(), 240, seguroDesgravamenMensual, cuotaBase, seguroBienMensual, tasaMensual); // cuotas obtiene las cuotas del cronograma
- */
-const simularCronograma = (montoCredito, fechaDesembolso, nroCuotas, seguroDesgravamenMensual, cuotaBaseSinSeguros, seguroBienMensual, tasaMensual) => {
-    const cuotas = [];
-    // Antes de iniciar la simulación el saldo de capital es el monto total del crédito
-    let saldoCapitalAnterior = montoCredito;
-    // Antes de iniciar la simulación la fecha de vencimiento es la fecha de desembolso
-    let fechaVencimientoAnterior = fechaDesembolso;
-    // Se itera por la cantidad de cuotas
-    for (let nroCuota = 1; nroCuota <= nroCuotas; nroCuota++) {
-        // Se calcula el monto del seguro de desgravamen
-        let seguroDesgravamen = saldoCapitalAnterior * seguroDesgravamenMensual;
-        // Se calcula el monto total de la cuota
-        let montoCuota = cuotaBaseSinSeguros + seguroDesgravamen + seguroBienMensual;
-        // Se calcula el interes de la cuota
-        let interes = saldoCapitalAnterior * tasaMensual;
-        // Se calcula el capital de la cuota
-        let amortizacion = cuotaBaseSinSeguros - interes;
-        // Se calcula el saldo capital despues de pagada la cuota
-        let saldoCapital = saldoCapitalAnterior - amortizacion;
-        // Se calcula la fecha de vencimiento de la cuota
-        let fechaVencimiento = new Date(new Date(fechaVencimientoAnterior).setMonth(fechaVencimientoAnterior.getMonth() + 1));
-
-        // Se crea el objeto cuota
-        const cuota = new Cuota(
-            nroCuota,
-            fechaVencimiento,
-            amortizacion,
-            interes,
-            seguroDesgravamen,
-            seguroBienMensual,
-            montoCuota,
-            saldoCapital);
-
-        // Se agrega al arreglo de cuotas
-        cuotas.push(cuota);
-
-        // Se actualiza el saldo capital para el calculo de la siguiente iteración
-        saldoCapitalAnterior = saldoCapital;
-        // Se actualiza la fecha de vencimiento para el calculo de la siguiente iteración
-        fechaVencimientoAnterior = fechaVencimiento;
-    }
-    return cuotas;
-}
-
-/**
- * @description Muestra las cuotas del crédito hipotecario por consola.
+ * @description Muestra las cuotas del crédito hipotecario en una tabla.
  * @param {Array} cuotas - Array con todas las cuotas de un cronograma.
  * @example
  * mostrarCronograma(cuotas);
  */
 const mostrarCronograma = (cuotas) => {
-    // console.log(`\nSIMULACIÓN DE CUOTAS\n`);
-    // console.table(cuotas);
-
     cuotas.forEach((cuota) => {
         const filas = document.getElementById("filas");
         const fila = document.createElement("tr");
@@ -405,21 +219,47 @@ const mostrarCronograma = (cuotas) => {
     });
 }
 
-const usarDatosPredeterminadosClick = () => {
-    const valorInmueble = document.getElementById("valorInmueble");
-    valorInmueble.value = "400000";
-    const cuotaInicial = document.getElementById("cuotaInicial");
-    cuotaInicial.value = "100000";
-    const tea = document.getElementById("tea");
-    tea.value = "8";
-    const nroCuotas = document.getElementById("nroCuotas");
-    nroCuotas.value = "240"
-    const seguroDesgravamenMensual = document.getElementById("seguroDesgravamenMensual");
-    seguroDesgravamenMensual.value = "0.03";
-    const seguroInmueble = document.getElementById("seguroInmueble");
-    seguroInmueble.value = "0.3";
+/**
+ * @description Asigna valores a las cajas de texto valorInmueble, cuotaInicial, tea, nroCuotas, seguroDesgravamenMensual y seguroInmueble.
+ * @param {number} valorInmueble - Valor del inmueble.
+ * @param {number} cuotaInicial - Valor de la cuota inicial.
+ * @param {number} tea - Valor de la TEA.
+ * @param {number} nroCuotas - Valor del número de cuotas.
+ * @param {number} seguroDesgravamenMensual - Valor del seguro de desgravamen mensual.
+ * @param {number} seguroInmueble - Valor del seguro del inmueble.
+ * @example
+ * mostrarDatos("400000", "100000", "8", "240", "0.03", "0.3") // se devolverá true
+ */
+const mostrarDatos = (valorInmueble, cuotaInicial, tea, nroCuotas, seguroDesgravamenMensual, seguroInmueble) => {
+    const valorInmuebleInput = document.getElementById("valorInmueble");
+    valorInmuebleInput.value = valorInmueble;
+    const cuotaInicialInput = document.getElementById("cuotaInicial");
+    cuotaInicialInput.value = cuotaInicial;
+    const teaInput = document.getElementById("tea");
+    teaInput.value = tea;
+    const nroCuotasInput = document.getElementById("nroCuotas");
+    nroCuotasInput.value = nroCuotas;
+    const seguroDesgravamenMensualInput = document.getElementById("seguroDesgravamenMensual");
+    seguroDesgravamenMensualInput.value = seguroDesgravamenMensual;
+    const seguroInmuebleInput = document.getElementById("seguroInmueble");
+    seguroInmuebleInput.value = seguroInmueble;
 }
 
+
+/**
+ * @description Manejador del evento click para usar datos predeterminados.
+ * @example
+ * usarDatosPredeterminadosClick()
+ */
+const usarDatosPredeterminadosClick = () => {
+    mostrarDatos("400000", "100000", "8", "240", "0.03", "0.3");
+}
+
+/**
+ * @description Manejador del evento click para limpiar los datos.
+ * @example
+ * limpiarClick()
+ */
 const limpiarClick = () => {
     const valorInmueble = document.getElementById("valorInmueble");
     valorInmueble.value = "";
@@ -437,6 +277,11 @@ const limpiarClick = () => {
     eliminarFilasResultado();
 }
 
+/**
+ * @description Manejador del evento click para calcular el cronograma de pago.
+ * @example
+ * calcularClick()
+ */
 const calcularClick = () => {
     let hayErrores = false;
     eliminarMensajesError();
@@ -485,28 +330,63 @@ const calcularClick = () => {
     let seguroDesgravamenMensualPorcentaje = seguroDesgravamenMensualPorcentajeDataEntry.dato;
     let seguroBienAnualPorcentaje = seguroBienAnualPorcentajeDataEntry.dato;
 
-    // Se calcula el monto a financiar
-    let montoCredito = obtenerMontoCredito(valorInmueble, cuotaInicial);
-    // Se calcula el seguro de desgravamen mensual
-    let seguroDesgravamenMensual = obtenerSeguroDesgravamenMensual(seguroDesgravamenMensualPorcentaje, BASE_100_PORCENTUAL);
-    // Se calcula la tasa de interés mensual
-    let tasaMensual = obtenerTeaMensual(teaPorcentaje, BASE_100_PORCENTUAL);
-    // Se calcula la cuota base (monto al cual se le agregan otros conceptos para obtener el total de la cuota)
-    let cuotaBase = obtenerCuotaBase(montoCredito, tasaMensual, nroCuotas);
-    // Se calcula el seguro del bien mensual
-    let seguroBienMensual = obtenerSeguroBienMensual(valorInmueble, seguroBienAnualPorcentaje, BASE_100_PORCENTUAL);
+    // const credito = new Credito(new Date(), valorInmueble, cuotaInicial, teaPorcentaje, nroCuotas, seguroDesgravamenMensualPorcentaje, seguroBienAnualPorcentaje, fechaDesembolso);
     // Se simula el cronograma de cuotas del prestamo hipotecario
-    let cuotas = simularCronograma(montoCredito, fechaDesembolso, nroCuotas, seguroDesgravamenMensual, cuotaBase, seguroBienMensual, tasaMensual);
+    // let cuotas = credito.simularCronograma();
     // Se muestra el cronograma simulado en consola
+
+    const simulador = new Simulador();
+    const cuotas = simulador.generarCronograma(new Date(), valorInmueble, cuotaInicial, teaPorcentaje, nroCuotas, seguroDesgravamenMensualPorcentaje, seguroBienAnualPorcentaje, fechaDesembolso);
     mostrarCronograma(cuotas);
 }
 
+/**
+ * @description Manejador del evento click para regresar a la página principal.
+ * @example
+ * regresarClick()
+ */
+const regresarClick = () => {
+    document.location.href = "../../index.html";
+}
+
+// Agregar un manejador del evento click al botón usarDatosPredeterminados
 const usarDatosPredeterminados = document.getElementById("usarDatosPredeterminados");
 usarDatosPredeterminados.addEventListener("click", usarDatosPredeterminadosClick);
 
+// Agregar un manejador del evento click al botón limpiar
 const limpiar = document.getElementById("limpiar");
 limpiar.addEventListener("click", limpiarClick);
 
+// Agregar un manejador del evento click al botón calcular
 const calcular = document.getElementById("calcular");
 calcular.addEventListener("click", calcularClick);
 
+// Agregar un manejador del evento click al botón regresar
+const regresar = document.getElementById("regresar");
+regresar.addEventListener("click", regresarClick);
+
+/**
+ * @description Manejador de la página principal. Si en el query string de la url hay un id, se busca el crédito
+ * en el local storage, se muestran los datos de dicho crédito y su cronograma de pagos
+ * @example
+ * cronograma()
+ */
+const cronograma = () => {
+    const queryString = document.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get("id");
+    if (id) {
+        const simulador = new Simulador();
+        const credito = simulador.obtenerCredito(id);
+        if (credito !== undefined) {
+            mostrarDatos(credito.valorInmueble, credito.cuotaInicial, credito.teaPorcentaje, credito.nroCuotas, credito.seguroDesgravamenMensualPorcentaje, credito.seguroInmueblePorcentaje); //credito.fechaDesembolso            
+            const cuotas = credito.cuotas.map((c) => {
+                return new Cuota(c.nroCuota, c.fechaVencimiento, c.amortizacion, c.interes, c.seguroDesgravamen, c.seguroBien, c.montoCuota, c.saldoCapital)
+            });
+            mostrarCronograma(cuotas);
+        }
+    }
+}
+
+// Ejecutar la función principal de la página
+cronograma();
