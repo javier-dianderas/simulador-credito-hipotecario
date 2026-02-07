@@ -1,0 +1,57 @@
+@use "../base/variables";
+@use "../utilities/extend";
+@use "sass:map";
+
+main {
+    display: flex;
+    justify-content: center;
+
+    div {
+        max-width: 1200px;
+
+        section {
+            div {
+                button {
+                    @extend %button_base;
+                }
+            }
+
+            div {
+                table {
+                    @extend %table_base;
+
+                    thead,
+                    tfoot {
+                        @extend %table_thead_tfoot_base;
+                    }
+
+                    th,
+                    td {
+                        @extend %table_tr_td_base;
+                    }
+
+                    td:nth-child(1),
+                    td:nth-child(2),
+                    td:nth-child(9),
+                    td:nth-child(10) {
+                        text-align: center;
+                    }
+
+                    td:nth-child(3),
+                    td:nth-child(4),
+                    td:nth-child(5),
+                    td:nth-child(6),
+                    td:nth-child(7),
+                    td:nth-child(8) {
+                        text-align: right;
+                    }
+
+                    tbody>tr:nth-of-type(even) {
+                        @extend %table_tr_even_base;
+                    }
+                }
+            }
+        }
+    }
+
+}

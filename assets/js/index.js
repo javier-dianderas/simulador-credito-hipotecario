@@ -63,11 +63,13 @@ const mostrarCreditos = (creditos) => {
         fechaDesembolso.innerText = credito.fechaDesembolsoFormat;
         fila.appendChild(fechaDesembolso);
 
-        const ver = document.createElement("button");
-        ver.innerText = "Ver";
-        ver.addEventListener("click", function () {
+        const ver = document.createElement("td");
+        const botonVer = document.createElement("button");
+        botonVer.innerText = "Ver";
+        botonVer.addEventListener("click", function () {
             verCreditoClick(credito.id);
         });
+        ver.appendChild(botonVer);
         fila.appendChild(ver);
         filasCreditos.appendChild(fila);
     });

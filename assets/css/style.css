@@ -1,3 +1,109 @@
-body, p {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+h1 {
+  font-size: 1.5rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+main div div button, main div section div button {
+  border: 0;
+  padding: 8px 10px;
+  font-size: 1rem;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  border-radius: 7px;
+  background-color: rgb(200, 41, 37);
+}
+
+main div div table, main div section div table {
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+main div div table thead,
+main div div table tfoot, main div section div table thead,
+main div section div table tfoot {
+  background-color: rgb(200, 41, 37);
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+main div div table th,
+main div div table td, main div section div table th,
+main div section div table td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+}
+
+main div div table tbody > tr:nth-of-type(even), main div section div table tbody > tr:nth-of-type(even) {
+  background-color: rgb(250, 231, 201);
+}
+
+main {
+  display: flex;
+  justify-content: center;
+}
+main div {
+  max-width: 1200px;
+}
+main div section div table td:nth-child(1),
+main div section div table td:nth-child(2),
+main div section div table td:nth-child(9),
+main div section div table td:nth-child(10) {
+  text-align: center;
+}
+main div section div table td:nth-child(3),
+main div section div table td:nth-child(4),
+main div section div table td:nth-child(5),
+main div section div table td:nth-child(6),
+main div section div table td:nth-child(7),
+main div section div table td:nth-child(8) {
+  text-align: right;
+}
+main div div div {
+  margin-bottom: 1rem;
+}
+main div div div label {
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  font-weight: bold;
+}
+main div div div input {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  border-radius: 0.375rem;
+  border: 1px solid rgb(149, 177, 199);
+}
+main div div div input:focus {
+  box-shadow: 0 0 0 0.25rem rgb(149, 177, 199);
+  outline: 0;
+}
+main div div div ul {
+  color: rgb(200, 41, 37);
+}
+main div div table td:nth-child(1),
+main div div table td:nth-child(2) {
+  text-align: center;
+}
+main div div table td:nth-child(3),
+main div div table td:nth-child(4),
+main div div table td:nth-child(5),
+main div div table td:nth-child(6),
+main div div table td:nth-child(7),
+main div div table td:nth-child(8) {
+  text-align: right;
+}
+
+/*# sourceMappingURL=style.css.map */

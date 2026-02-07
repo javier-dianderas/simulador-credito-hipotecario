@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cronograma</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>
@@ -12,71 +13,73 @@
     </header>
 
     <main>
-        <h1>Simulador de Crédito Hipotecario</h1>
-
-        <p>Genera un cronograma de pagos con datos predeterminados:</p>
         <div>
-            <button id="usarDatosPredeterminados">Usar datos predeterminados</button>
-        </div>
-        <p>o ingresando datos personalizados:</p>
-        <div>
-            <div>
-                <label>Valor Inmueble:</label>
-                <input id="valorInmueble" type="text">
-            </div>
-            <div>
-                <label>Cuota Inicial:</label>
-                <input id="cuotaInicial" type="text">
-            </div>
-            <div>
-                <label>TEA (%):</label>
-                <input id="tea" type="text">
-            </div>
-            <div>
-                <label>Nro. Cuotas:</label>
-                <input id="nroCuotas" type="text">
-            </div>
-            <div>
-                <label>Seguro Desgravamen Mensual (%):</label>
-                <input id="seguroDesgravamenMensual" type="text">
-            </div>
-            <div>
-                <label>Seguro Inmueble (%):</label>
-                <input id="seguroInmueble" type="text">
-            </div>
-            <div id="panelMensajes">
-                <ul id="listaMensajes">
-                </ul>
-            </div>
-            <button id="calcular" type="button">Calcular</button>
-            <button id="limpiar" type="button">Limpiar</button>
-        </div>
+            <h1>Simulador de Crédito Hipotecario</h1>
 
-        <h2>Cronograma de pago</h2>
+            <p>Genera un cronograma de pagos con datos predeterminados:</p>
+            <div>
+                <button id="usarDatosPredeterminados">Usar datos predeterminados</button>
+            </div>
+            <p>o ingresando datos personalizados:</p>
+            <div>
+                <div>
+                    <label>Valor Inmueble:</label>
+                    <input id="valorInmueble" type="text">
+                </div>
+                <div>
+                    <label>Cuota Inicial:</label>
+                    <input id="cuotaInicial" type="text">
+                </div>
+                <div>
+                    <label>TEA (%):</label>
+                    <input id="tea" type="text">
+                </div>
+                <div>
+                    <label>Nro. Cuotas:</label>
+                    <input id="nroCuotas" type="text">
+                </div>
+                <div>
+                    <label>Seguro Desgravamen Mensual (%):</label>
+                    <input id="seguroDesgravamenMensual" type="text">
+                </div>
+                <div>
+                    <label>Seguro Inmueble (%):</label>
+                    <input id="seguroInmueble" type="text">
+                </div>
+                <div id="panelMensajes">
+                    <ul id="listaMensajes">
+                    </ul>
+                </div>
+                <button id="calcular" type="button">Calcular</button>
+                <button id="limpiar" type="button">Limpiar</button>
+            </div>
 
-        <div id="resultados">
-            <table>
-                <thead>
-                    <tr>
-                        <td>Nro. cuota</td>
-                        <td>Fecha de vencimiento</td>
-                        <td>Amortización</td>
-                        <td>Interés</td>
-                        <td>Seguro de desgravamen</td>
-                        <td>Seguro del bien</td>
-                        <td>Monto cuota</td>
-                        <td>Seguro del capital</td>
-                    </tr>
-                </thead>
-                <tbody id="filas">
-                </tbody>
-                <tfoot>
-                </tfoot>
-            </table>
-        </div>
+            <h2>Cronograma de pago</h2>
 
-        <div>
-            <button id="regresar" type="button">Regresar</button>
+            <div id="resultados">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Nro. cuota</td>
+                            <td>Fecha de vencimiento</td>
+                            <td>Amortización</td>
+                            <td>Interés</td>
+                            <td>Seguro de desgravamen</td>
+                            <td>Seguro del bien</td>
+                            <td>Monto cuota</td>
+                            <td>Seguro del capital</td>
+                        </tr>
+                    </thead>
+                    <tbody id="filas">
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div>
+                <button id="regresar" type="button">Regresar</button>
+            </div>
         </div>
     </main>
 
