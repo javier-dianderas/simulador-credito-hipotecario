@@ -8,8 +8,6 @@ El simulador esta compuesto por dos páginas:
 
 ### Página de Créditos
 
-![Captura de pantalla de página de créditos](/assets/images/credito_screenshot.jpg)
-
 Permite buscar créditos por distintos criterios:
 
 - **Fecha:** Fecha y hora en la que se generó el crédito.
@@ -21,6 +19,8 @@ Permite buscar créditos por distintos criterios:
 _Para realizar una búsqueda presionar el botón **Buscar**._
 _Para limpiar los criterios de búsqueda y la tabla de resultados presionar el botón **Limpiar**._
 _Para simular un nuevo crédito hipotecario presionar el botón **Agregar simulación**._
+
+![Captura de pantalla de página de créditos](/assets/images/credito_screenshot.jpg)
 
 Se pueden ver todas las simulaciones de créditos en la tabla de resultados:
 
