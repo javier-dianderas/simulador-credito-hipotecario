@@ -45,12 +45,12 @@ _Presionar el botón **Usar datos prederterminados**._
 
 O ingresar los datos necesarios para la simulación:
 
-- **Valor del inmueble:** Valor del inmueble. Debe ser mayor a 0.
-- **Cuota inicial:** Monto deducible del valor del inmueble. Debe ser mayor a 0 y menor al **Valor del inmueble**.
-- **TEA (% anual):** Porcentaje de la Tasa Efectiva Anual del préstamo hipotecario. Debe ser mayor a 0.
-- **Nro. de cuotas:** Número de cuotas a simular. Debe ser entre 12 y 360.
-- **Seguro de desgravamen (% mensual):** Porcentaje mensual del seguro de desgravamen. Debe ser mayor a 0.        
-- **Seguro del bien (% anual):** Porcentaje anual del seguro del bien. Debe ser mayor a 0.
+- **Valor Inmueble:** Valor del inmueble. Debe ser mayor a 0.
+- **Cuota Inicial:** Monto deducible del valor del inmueble. Debe ser mayor a 0 y menor al **Valor del inmueble**.
+- **TEA (%):** Porcentaje de la Tasa Efectiva Anual del préstamo hipotecario. Debe ser mayor a 0.
+- **Nro. Cuotas:** Número de cuotas a simular. Debe ser entre 12 y 360.
+- **Seguro Desgravamen Mensual (%):** Porcentaje mensual del seguro de desgravamen. Debe ser mayor a 0.        
+- **Seguro Inmueble (%):** Porcentaje anual del seguro del bien. Debe ser mayor a 0.
 
 _Para generar el cronograma de pagos presionar el botón **Calcular**._
 _Para limpiar los datos ingresados presionar el botón **Limpiar**._
@@ -68,4 +68,4 @@ Se puede ver el cronograma de cuotas en la tabla de resultados:
 - **Monto cuota:** Monto de la cuota.
 - **Saldo del capital:** Monto que representa el saldo de capital luego de cancelada la cuota.
 
-_Para regrgesar a la página de créditos presionar el botón **Regresar**._
+_Para regresar a la página de créditos presionar el botón **Regresar**._
