@@ -10,6 +10,10 @@ main {
             &.datosPredeterminados {
                 button {
                     @extend %button_base;
+
+                    &:disabled {
+                        @extend %button_disabled_base;
+                    }
                 }
             }
         }
@@ -42,6 +46,10 @@ main {
 
                 button {
                     @extend %button_base;
+
+                    &:disabled {
+                        @extend %button_disabled_base;
+                    }
                 }
             }
         }

@@ -23,6 +23,12 @@ main div div.datosPredeterminados button, main div div.datosPersonalizados butto
   background-color: rgb(200, 41, 37);
 }
 
+main div div.datosPredeterminados button:disabled, main div div.datosPersonalizados button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  opacity: 1;
+}
+
 main div div.resultados table, main div section.resultados div table {
   border-collapse: collapse;
   border: 1px solid #ccc;
@@ -102,6 +108,9 @@ main div section.busqueda div.filtros div:nth-child(4) {
 }
 main div section.busqueda div.filtros div:nth-child(5) {
   grid-area: filtro5;
+}
+main div section.busqueda div.acciones div:nth-child(1) {
+  color: rgb(200, 41, 37);
 }
 main div section.busqueda div.acciones div:nth-child(2) {
   display: flex;

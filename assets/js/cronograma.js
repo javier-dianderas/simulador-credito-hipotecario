@@ -289,7 +289,7 @@ const calcularClick = () => {
     let hayErrores = false;
     eliminarMensajesError();
     eliminarFilasResultado();
-    // Se solicitan todos los datos necesarios para simular el cronograma del crédito hipotecario
+    // Se solicitan todos los datos necesarios para simular el cronograma del crédito hipotecario. Si alguno de los datos es inválido se muestra un mensaje de error.
     const valorInmuebleDataEntry = obtenerValorInmueble();
     if (!valorInmuebleDataEntry.valido) {
         mostrarMensajeError(valorInmuebleDataEntry);
@@ -333,13 +333,10 @@ const calcularClick = () => {
     let seguroDesgravamenMensualPorcentaje = seguroDesgravamenMensualPorcentajeDataEntry.dato;
     let seguroBienAnualPorcentaje = seguroBienAnualPorcentajeDataEntry.dato;
 
-    // const credito = new Credito(new Date(), valorInmueble, cuotaInicial, teaPorcentaje, nroCuotas, seguroDesgravamenMensualPorcentaje, seguroBienAnualPorcentaje, fechaDesembolso);
-    // Se simula el cronograma de cuotas del prestamo hipotecario
-    // let cuotas = credito.simularCronograma();
-    // Se muestra el cronograma simulado en consola
-
+    // Se genera el cronograma
     const simulador = new Simulador();
     const cuotas = simulador.generarCronograma(new Date(), valorInmueble, cuotaInicial, teaPorcentaje, nroCuotas, seguroDesgravamenMensualPorcentaje, seguroBienAnualPorcentaje, fechaDesembolso);
+    // Se muestra el cronograma
     mostrarCronograma(cuotas);
 }
 
@@ -364,7 +361,7 @@ limpiar.addEventListener("click", limpiarClick);
 const calcular = document.getElementById("calcular");
 calcular.addEventListener("click", calcularClick);
 
-// Agregar un manejador del evento click al botón regresar
+// Agregar un manejador del evento click al botón regresar de la parte superior
 const regresarSuperior = document.getElementById("regresarSuperior");
 regresarSuperior.addEventListener("click", regresarClick);
 
@@ -391,6 +388,12 @@ const cronograma = () => {
                 return new Cuota(c.nroCuota, c.fechaVencimiento, c.amortizacion, c.interes, c.seguroDesgravamen, c.seguroBien, c.montoCuota, c.saldoCapital)
             });
             mostrarCronograma(cuotas);
+            const usarDatosPredeterminados = document.getElementById("usarDatosPredeterminados");
+            usarDatosPredeterminados.disabled = true;
+            const calcular = document.getElementById("calcular");
+            calcular.disabled = true;
+            const limpiar = document.getElementById("limpiar");
+            limpiar.disabled = true;
         }
     }
 }

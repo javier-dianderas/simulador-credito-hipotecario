@@ -1,8 +1,9 @@
+// Constantes con los rangos para las cuotas
 const NRO_CUOTAS_RANGO_INICIAL = 12;
 const NRO_CUOTAS_RANGO_FINAL = 360;
 
 /**
- * @description Completa la hora local a una fecha.
+ * @description Completa la hora local de una fecha. Esto evita que las fechas cambien al ser convertidas en la fecha/hora local.
  * @param {string} fecha - Fecha a completar. 
  * @returns {string} Fecha completada con hora local (T00:00:00).
  * @example
@@ -111,7 +112,6 @@ class DataEntry {
      * @param {boolean} valido - Indica si el dato ingresado es válido o no.
      */
     constructor(tieneValor, valido) {
-        // this.dato = dato;
         this.tieneValor = tieneValor;
         this.dato = null;
         this.valido = valido;
@@ -360,10 +360,6 @@ class Credito {
             // Se calcula la fecha de vencimiento de la cuota
             let fechaVencimiento = new Date(new Date(fechaVencimientoAnterior).setMonth(fechaVencimientoAnterior.getMonth() + 1));
 
-            console.log(fechaVencimiento);
-            console.log(typeof fechaVencimiento);
-            console.log(fechaVencimiento instanceof Date);
-
             // Se crea el objeto cuota
             const cuota = new Cuota(
                 nroCuota,
@@ -439,14 +435,14 @@ class Simulador {
      * let cuotas = generarCronograma(1); // credito obtiene el crédito existente
      */
     generarCronograma(fechaHora, valorInmueble, cuotaInicial, teaPorcentaje, nroCuotas, seguroDesgravamenMensualPorcentaje, seguroBienAnualPorcentaje, fechaDesembolso) {
+        // Se crea un objeto crédito para generar el cronograma de pago
         const credito = new Credito(this.creditos.length + 1, fechaHora, valorInmueble, cuotaInicial, teaPorcentaje, nroCuotas, seguroDesgravamenMensualPorcentaje, seguroBienAnualPorcentaje, fechaDesembolso);
         credito.simularCronograma();
-        const creditoEncontrado = this.creditos.findIndex(c => c.id == credito.id);
-        if (creditoEncontrado > -1) {
-            this.creditos[creditoEncontrado] = credito;
-        } else {
-            this.creditos.push(credito);
-        }
+
+        // Se agrega el crédito al array
+        this.creditos.push(credito);
+
+        // Se guardan los créditos en el local storage
         this.guardarCreditos();
         return credito.cuotas;
     }

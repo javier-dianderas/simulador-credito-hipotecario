@@ -64,6 +64,10 @@ main {
 
                     &.acciones {
                         div {
+                            &:nth-child(1) {
+                                color: map.get(variables.$colores, primario);
+                            }
+
                             &:nth-child(2) {
                                 display: flex;
                                 justify-content: end;

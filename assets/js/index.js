@@ -21,7 +21,7 @@ const obtenerFechaDesde = () => {
 }
 
 /**
- * @description Obtiene el valor ingresado en la caja de texto FechaDesde.
+ * @description Obtiene el valor ingresado en la caja de texto FechaHasta.
  * @returns {DataEntry} Se retorna el dato obtenido en la caja de texto, si es válido o no y uno o varios mensajes en caso sea inválido.
  * @example
  * obtenerFechaHasta() // se devolverá el objeto DataEntry
@@ -70,14 +70,14 @@ const obtenerValorInmuebleDesde = () => {
  * @description Obtiene el valor ingresado en la caja de texto valorInmuebleHasta.
  * @returns {DataEntry} Se retorna el dato obtenido en la caja de texto, si es válido o no y uno o varios mensajes en caso sea inválido.
  * @example
- * obtenerValorInmuebleDesde() // se devolverá el objeto DataEntry
+ * obtenerValorInmuebleHasta() // se devolverá el objeto DataEntry
  */
 const obtenerValorInmuebleHasta = (valorInmuebleDesde) => {
     const valorInmuebleHasta = document.getElementById("valorInmuebleHasta");
     const dataEntry = new DataEntry(false, false);
     if (validarVacio(valorInmuebleHasta.value) && !validarNumeroMayorACero(valorInmuebleHasta.value)) {
         dataEntry.agregarMensaje(`El valor del inmueble hasta debe ser mayor a 0.`);
-    } else if (validarVacio(valorInmuebleHasta.value) && valorInmuebleDesde > Number(valorInmuebleHasta.value)) {
+    } else if (validarVacio(valorInmuebleHasta.value) && valorInmuebleDesde >= Number(valorInmuebleHasta.value)) {
         dataEntry.agregarMensaje(`El valor del inmueble hasta debe ser mayor al valor del inmueble desde.`);
     } else if (!validarVacio(valorInmuebleHasta.value)) {
         dataEntry.tieneValor = false;
@@ -123,7 +123,7 @@ const obtenerCuotaInicialHasta = (cuotaInicialDesde) => {
     const dataEntry = new DataEntry(false, false);
     if (validarVacio(cuotaInicialHasta.value) && !validarNumeroMayorACero(cuotaInicialHasta.value)) {
         dataEntry.agregarMensaje(`La cuota inicial hasta debe ser mayor a 0.`);
-    } else if (validarVacio(cuotaInicialHasta.value) && cuotaInicialDesde > Number(cuotaInicialHasta.value)) {
+    } else if (validarVacio(cuotaInicialHasta.value) && cuotaInicialDesde >= Number(cuotaInicialHasta.value)) {
         dataEntry.agregarMensaje(`La cuota inicial hasta debe ser mayor a la cuota inicial desde.`);
     } else if (!validarVacio(cuotaInicialHasta.value)) {
         dataEntry.tieneValor = false;
@@ -169,7 +169,7 @@ const obtenerTeaHasta = (teaDesde) => {
     const dataEntry = new DataEntry(false, false);
     if (validarVacio(teaHasta.value) && !validarNumeroMayorACero(teaHasta.value)) {
         dataEntry.agregarMensaje(`La TEA (%) hasta debe ser mayor a 0.`);
-    } else if (validarVacio(teaHasta.value) && teaDesde > Number(teaHasta.value)) {
+    } else if (validarVacio(teaHasta.value) && teaDesde >= Number(teaHasta.value)) {
         dataEntry.agregarMensaje(`La TEA (%) hasta debe ser mayor a la TEA (%) desde.`);
     } else if (!validarVacio(teaHasta.value)) {
         dataEntry.tieneValor = false;
@@ -183,7 +183,7 @@ const obtenerTeaHasta = (teaDesde) => {
 }
 
 /**
- * @description Obtiene el valor ingresado en la caja de texto obtenerNroCuotasDesde.
+ * @description Obtiene el valor ingresado en la caja de texto nroCuotasDesde.
  * @returns {DataEntry} Se retorna el dato obtenido en la caja de texto, si es válido o no y uno o varios mensajes en caso sea inválido.
  * @example
  * obtenerNroCuotasDesde() // se devolverá el objeto DataEntry
@@ -208,14 +208,14 @@ const obtenerNroCuotasDesde = () => {
  * @description Obtiene el valor ingresado en la caja de texto nroCuotasHasta.
  * @returns {DataEntry} Se retorna el dato obtenido en la caja de texto, si es válido o no y uno o varios mensajes en caso sea inválido.
  * @example
- * obtenerNroCuotasDesde() // se devolverá el objeto DataEntry
+ * obtenerNroCuotasHasta() // se devolverá el objeto DataEntry
  */
 const obtenerNroCuotasHasta = (nroCuotasDesde) => {
     const nroCuotasHasta = document.getElementById("nroCuotasHasta");
     const dataEntry = new DataEntry(false, false);
     if (validarVacio(nroCuotasHasta.value) && !validarNumeroRango(nroCuotasHasta.value, NRO_CUOTAS_RANGO_INICIAL, NRO_CUOTAS_RANGO_FINAL)) {
         dataEntry.agregarMensaje(`El número de cuotas hasta debe ser entre 12 y 360.`);
-    } else if (validarVacio(nroCuotasHasta.value) && nroCuotasDesde > Number(nroCuotasHasta.value)) {
+    } else if (validarVacio(nroCuotasHasta.value) && nroCuotasDesde >= Number(nroCuotasHasta.value)) {
         dataEntry.agregarMensaje(`El número de cuotas hasta debe ser mayor al número de cuotas desde.`);
     } else if (!validarVacio(nroCuotasHasta.value)) {
         dataEntry.tieneValor = false;
@@ -307,7 +307,7 @@ const buscarClick = () => {
     let hayErrores = false;
     eliminarMensajesError();
     eliminarFilasResultado();
-    // Se solicitan todos los datos necesarios para buscar los créditos
+    // Se solicitan todos los datos necesarios para buscar los créditos, en caso algun dato sea invalido se muestra un mensaje de error.
     const fechaDesdeDataEntry = obtenerFechaDesde();
     if (!fechaDesdeDataEntry.valido) {
         mostrarMensajeError(fechaDesdeDataEntry);
@@ -353,7 +353,7 @@ const buscarClick = () => {
         mostrarMensajeError(nroCuotasDesdeDataEntry);
         hayErrores = true;
     }
-    const nroCuotasHastaDataEntry = obtenerNroCuotasHasta();
+    const nroCuotasHastaDataEntry = obtenerNroCuotasHasta(nroCuotasDesdeDataEntry.dato);
     if (!nroCuotasHastaDataEntry.valido) {
         mostrarMensajeError(nroCuotasHastaDataEntry);
         hayErrores = true;
@@ -367,7 +367,6 @@ const buscarClick = () => {
     let creditos = simulador.creditos.map((c) => {
         return new Credito(c.id, new Date(c.fechaHora), c.valorInmueble, c.cuotaInicial, c.teaPorcentaje, c.nroCuotas, c.seguroDesgravamenMensualPorcentaje, c.seguroInmueblePorcentaje, new Date(c.fechaDesembolso));
     });
-    // const creditos = simulador.creditos;
     // Filtrar fechaDesde
     if (fechaDesdeDataEntry.tieneValor) {
         creditos = creditos.filter((c) => {
@@ -527,9 +526,11 @@ buscar.addEventListener("click", buscarClick);
  */
 const index = () => {
     const simulador = new Simulador();
+    // Se crean los objetos crédito en base a la información recuperada del local storage
     const creditos = simulador.creditos.map((c) => {
         return new Credito(c.id, new Date(c.fechaHora), c.valorInmueble, c.cuotaInicial, c.teaPorcentaje, c.nroCuotas, c.seguroDesgravamenMensualPorcentaje, c.seguroInmueblePorcentaje, new Date(c.fechaDesembolso));
     });
+    // Se muestran los créditos
     mostrarCreditos(creditos);
 }
 

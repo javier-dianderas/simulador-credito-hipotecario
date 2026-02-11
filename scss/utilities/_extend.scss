@@ -11,6 +11,12 @@
     background-color: map.get(variables.$colores, primario);
 }
 
+%button_disabled_base {
+    background-color: #cccccc;
+    color: #666666;
+    opacity: 1;
+}
+
 %table_base {
     border-collapse: collapse;
     border: 1px solid map.get(variables.$colores, borde);
