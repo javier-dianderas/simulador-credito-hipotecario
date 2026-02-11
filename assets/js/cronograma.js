@@ -385,7 +385,7 @@ const cronograma = () => {
         if (credito !== undefined) {
             mostrarDatos(credito.valorInmueble, credito.cuotaInicial, credito.teaPorcentaje, credito.nroCuotas, credito.seguroDesgravamenMensualPorcentaje, credito.seguroInmueblePorcentaje); //credito.fechaDesembolso            
             const cuotas = credito.cuotas.map((c) => {
-                return new Cuota(c.nroCuota, c.fechaVencimiento, c.amortizacion, c.interes, c.seguroDesgravamen, c.seguroBien, c.montoCuota, c.saldoCapital)
+                return new Cuota(c.nroCuota, new Date(c.fechaVencimiento), c.amortizacion, c.interes, c.seguroDesgravamen, c.seguroBien, c.montoCuota, c.saldoCapital)
             });
             mostrarCronograma(cuotas);
             const usarDatosPredeterminados = document.getElementById("usarDatosPredeterminados");
