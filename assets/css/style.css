@@ -13,7 +13,7 @@ h2 {
   font-size: 1.2rem;
 }
 
-main div div button, main div section div button {
+main div div.datosPredeterminados button, main div div.datosPersonalizados button, main div div.regresar button, main div section.busqueda div.acciones div button, main div section.resultados div button {
   border: 0;
   padding: 8px 10px;
   font-size: 1rem;
@@ -23,30 +23,49 @@ main div div button, main div section div button {
   background-color: rgb(200, 41, 37);
 }
 
-main div div table, main div section div table {
+main div div.resultados table, main div section.resultados div table {
   border-collapse: collapse;
   border: 1px solid #ccc;
   font-size: 0.9rem;
 }
 
-main div div table thead,
-main div div table tfoot, main div section div table thead,
-main div section div table tfoot {
+main div div.resultados table thead,
+main div div.resultados table tfoot, main div section.resultados div table thead,
+main div section.resultados div table tfoot {
   background-color: rgb(200, 41, 37);
   color: rgb(255, 255, 255);
   font-size: 1rem;
   font-weight: bold;
 }
 
-main div div table th,
-main div div table td, main div section div table th,
-main div section div table td {
+main div div.resultados table th,
+main div div.resultados table td, main div section.resultados div table th,
+main div section.resultados div table td {
   border: 1px solid #ccc;
   padding: 8px 10px;
 }
 
-main div div table tbody > tr:nth-of-type(even), main div section div table tbody > tr:nth-of-type(even) {
+main div div.resultados table tbody > tr:nth-of-type(even), main div section.resultados div table tbody > tr:nth-of-type(even) {
   background-color: rgb(250, 231, 201);
+}
+
+main div div.datosPersonalizados div label, main div section.busqueda div.filtros div label {
+  margin-bottom: 0.5rem;
+  display: block;
+  font-weight: bold;
+}
+
+main div div.datosPersonalizados div input, main div section.busqueda div.filtros div input {
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  border-radius: 0.375rem;
+  border: 1px solid rgb(149, 177, 199);
+}
+
+main div div.datosPersonalizados div input:focus, main div section.busqueda div.filtros div input:focus {
+  box-shadow: 0 0 0 0.25rem rgb(149, 177, 199);
+  outline: 0;
 }
 
 main {
@@ -56,54 +75,85 @@ main {
 main div {
   max-width: 1200px;
 }
-main div section div table td:nth-child(1),
-main div section div table td:nth-child(2),
-main div section div table td:nth-child(9),
-main div section div table td:nth-child(10) {
+main div section.busqueda {
+  background-color: rgb(250, 231, 201);
+  padding: 10px;
+  margin-bottom: 10px;
+}
+main div section.busqueda div.filtros {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 1px;
+  column-gap: 1px;
+  grid-template-areas: "filtro1 filtro2" "filtro3 filtro4" "filtro5 filtro6";
+}
+main div section.busqueda div.filtros div:nth-child(1) {
+  grid-area: filtro1;
+}
+main div section.busqueda div.filtros div:nth-child(2) {
+  grid-area: filtro2;
+}
+main div section.busqueda div.filtros div:nth-child(3) {
+  grid-area: filtro3;
+}
+main div section.busqueda div.filtros div:nth-child(4) {
+  grid-area: filtro4;
+}
+main div section.busqueda div.filtros div:nth-child(5) {
+  grid-area: filtro5;
+}
+main div section.busqueda div.acciones div:nth-child(2) {
+  display: flex;
+  justify-content: end;
+}
+main div section.busqueda div.acciones div button:nth-child(2) {
+  margin-left: 5px;
+}
+main div section.resultados {
+  margin-bottom: 10px;
+}
+main div section.resultados div table td:nth-child(1),
+main div section.resultados div table td:nth-child(2),
+main div section.resultados div table td:nth-child(9),
+main div section.resultados div table td:nth-child(10) {
   text-align: center;
 }
-main div section div table td:nth-child(3),
-main div section div table td:nth-child(4),
-main div section div table td:nth-child(5),
-main div section div table td:nth-child(6),
-main div section div table td:nth-child(7),
-main div section div table td:nth-child(8) {
+main div section.resultados div table td:nth-child(3),
+main div section.resultados div table td:nth-child(4),
+main div section.resultados div table td:nth-child(5),
+main div section.resultados div table td:nth-child(6),
+main div section.resultados div table td:nth-child(7),
+main div section.resultados div table td:nth-child(8) {
   text-align: right;
 }
-main div div div {
+main div div.datosPersonalizados {
+  background-color: rgb(250, 231, 201);
+  padding: 10px;
+}
+main div div.datosPersonalizados div {
   margin-bottom: 1rem;
 }
-main div div div label {
-  margin-bottom: 0.5rem;
-  display: inline-block;
-  font-weight: bold;
+main div div.datosPersonalizados div input {
+  width: 97%;
 }
-main div div div input {
-  width: 100%;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  border-radius: 0.375rem;
-  border: 1px solid rgb(149, 177, 199);
-}
-main div div div input:focus {
-  box-shadow: 0 0 0 0.25rem rgb(149, 177, 199);
-  outline: 0;
-}
-main div div div ul {
+main div div.datosPersonalizados div ul {
   color: rgb(200, 41, 37);
 }
-main div div table td:nth-child(1),
-main div div table td:nth-child(2) {
+main div div.resultados table td:nth-child(1),
+main div div.resultados table td:nth-child(2) {
   text-align: center;
 }
-main div div table td:nth-child(3),
-main div div table td:nth-child(4),
-main div div table td:nth-child(5),
-main div div table td:nth-child(6),
-main div div table td:nth-child(7),
-main div div table td:nth-child(8) {
+main div div.resultados table td:nth-child(3),
+main div div.resultados table td:nth-child(4),
+main div div.resultados table td:nth-child(5),
+main div div.resultados table td:nth-child(6),
+main div div.resultados table td:nth-child(7),
+main div div.resultados table td:nth-child(8) {
   text-align: right;
+}
+main div div.regresar {
+  margin: 10px 0px;
 }
 
 /*# sourceMappingURL=style.css.map */

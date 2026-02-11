@@ -13,15 +13,42 @@
     <main>
         <div>
             <h1>Simulador de Crédito Hipotecario</h1>
-            <section>
-                <h2>Filtros</h2>
-                <form>
+            <section class="busqueda">
+                <h2>Criterios de búsqueda</h2>
+                <div class="filtros">
                     <div>
-                        <label></label>
+                        <label>Fecha / Hora</label>
+                        <input id="fechaDesde" type="date"> - <input id="fechaHasta" type="date">
                     </div>
-                </form>
+                    <div>
+                        <label>Valor Inmueble</label>
+                        <input id="valorInmuebleDesde" type="text"> - <input id="valorInmuebleHasta" type="text">
+                    </div>
+                    <div>
+                        <label>Cuota Inicial</label>
+                        <input id="cuotaInicialDesde" type="text"> - <input id="cuotaInicialHasta" type="text">
+                    </div>
+                    <div>
+                        <label>TEA (%)</label>
+                        <input id="teaDesde" type="text"> - <input id="teaHasta" type="text">
+                    </div>
+                    <div>
+                        <label>Nro. Cuotas</label>
+                        <input id="nroCuotasDesde" type="text"> - <input id="nroCuotasHasta" type="text">
+                    </div>
+                </div>
+                <div class="acciones">
+                    <div id="panelMensajes">
+                        <ul id="listaMensajes">
+                        </ul>
+                    </div>
+                    <div>
+                        <button id="buscar" type="button">Buscar</button>
+                        <button id="limpiar" type="button">Limpiar</button>
+                    </div>
+                </div>
             </section>
-            <section>
+            <section class="resultados">
                 <div>
                     <button id="agregarCredito">Agregar simulación</button>
                 </div>

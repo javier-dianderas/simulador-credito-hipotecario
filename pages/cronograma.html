@@ -17,11 +17,11 @@
             <h1>Simulador de Crédito Hipotecario</h1>
 
             <p>Genera un cronograma de pagos con datos predeterminados:</p>
-            <div>
+            <div class="datosPredeterminados">
                 <button id="usarDatosPredeterminados">Usar datos predeterminados</button>
             </div>
             <p>o ingresando datos personalizados:</p>
-            <div>
+            <div class="datosPersonalizados">
                 <div>
                     <label>Valor Inmueble:</label>
                     <input id="valorInmueble" type="text">
@@ -54,9 +54,13 @@
                 <button id="limpiar" type="button">Limpiar</button>
             </div>
 
+            <div class="regresar">
+                <button id="regresarSuperior" type="button">Regresar</button>
+            </div>
+
             <h2>Cronograma de pago</h2>
 
-            <div id="resultados">
+            <div id="resultados" class="resultados">
                 <table>
                     <thead>
                         <tr>
@@ -77,7 +81,7 @@
                 </table>
             </div>
 
-            <div>
+            <div class="regresar">
                 <button id="regresar" type="button">Regresar</button>
             </div>
         </div>

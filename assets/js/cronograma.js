@@ -1,6 +1,3 @@
-const NRO_CUOTAS_RANGO_INICIAL = 12;
-const NRO_CUOTAS_RANGO_FINAL = 360;
-
 /**
  * @description Valida que la cuota inicial sea menor al valor del inmueble, si es así devuelve true, caso contrario devuelve false.
  * @param {number} valorInmueble - Valor del inmueble.
@@ -24,11 +21,12 @@ const validarCuotaInicial = (valorInmueble, cuotaInicial) => {
  */
 const obtenerValorInmueble = () => {
     const valorInmueble = document.getElementById("valorInmueble");
-    const dataEntry = new DataEntry(valorInmueble.value, false);
+    const dataEntry = new DataEntry(false, false);
     if (!validarNumeroMayorACero(valorInmueble.value)) {
         dataEntry.agregarMensaje(`El valor del inmueble debe ser mayor a 0.`);
     }
     else {
+        dataEntry.tieneValor = true;
         dataEntry.dato = Number(valorInmueble.value);
         dataEntry.valido = true;
     }
@@ -43,7 +41,7 @@ const obtenerValorInmueble = () => {
  */
 const obtenerCuotaInicial = (valorInmueble) => {
     const cuotaInicial = document.getElementById("cuotaInicial");
-    const dataEntry = new DataEntry(cuotaInicial.value, false);
+    const dataEntry = new DataEntry(false, false);
     if (!validarNumeroMayorACero(cuotaInicial.value)) {
         dataEntry.agregarMensaje(`La cuota inicial debe ser mayor a 0.`);
     }
@@ -51,6 +49,7 @@ const obtenerCuotaInicial = (valorInmueble) => {
         dataEntry.agregarMensaje(`La cuota inicial no puede ser mayor o igual al valor del inmueble.`);
     }
     else {
+        dataEntry.tieneValor = true;
         dataEntry.dato = Number(cuotaInicial.value);
         dataEntry.valido = true;
     }
@@ -65,11 +64,12 @@ const obtenerCuotaInicial = (valorInmueble) => {
  */
 const obtenerTeaPorcentaje = () => {
     const tea = document.getElementById("tea");
-    const dataEntry = new DataEntry(tea.value, false);
+    const dataEntry = new DataEntry(false, false);
     if (!validarNumeroMayorACero(tea.value)) {
         dataEntry.agregarMensaje(`La TEA (%) debe ser mayor a 0.`);
     }
     else {
+        dataEntry.tieneValor = true;
         dataEntry.dato = Number(tea.value);
         dataEntry.valido = true;
     }
@@ -84,11 +84,12 @@ const obtenerTeaPorcentaje = () => {
  */
 const obtenerNroCuotas = () => {
     const nroCuotas = document.getElementById("nroCuotas");
-    const dataEntry = new DataEntry(nroCuotas.value, false);
+    const dataEntry = new DataEntry(false, false);
     if (!validarNumeroRango(nroCuotas.value, NRO_CUOTAS_RANGO_INICIAL, NRO_CUOTAS_RANGO_FINAL)) {
         dataEntry.agregarMensaje(`El número de cuotas debe ser entre 12 y 360.`);
     }
     else {
+        dataEntry.tieneValor = true;
         dataEntry.dato = Number(nroCuotas.value);
         dataEntry.valido = true;
     }
@@ -103,11 +104,12 @@ const obtenerNroCuotas = () => {
  */
 const obtenerSeguroDesgravamenMensualPorcentaje = () => {
     const seguroDesgravamenMensual = document.getElementById("seguroDesgravamenMensual");
-    const dataEntry = new DataEntry(seguroDesgravamenMensual.value, false);
+    const dataEntry = new DataEntry(false, false);
     if (!validarNumeroMayorACero(seguroDesgravamenMensual.value)) {
         dataEntry.agregarMensaje(`El porcentaje del desgravamen mensual (%) debe ser mayor a 0.`);
     }
     else {
+        dataEntry.tieneValor = true;
         dataEntry.dato = Number(seguroDesgravamenMensual.value);
         dataEntry.valido = true;
     }
@@ -122,11 +124,12 @@ const obtenerSeguroDesgravamenMensualPorcentaje = () => {
  */
 const obtenerSeguroBienAnualPorcentaje = () => {
     const seguroInmueble = document.getElementById("seguroInmueble");
-    const dataEntry = new DataEntry(seguroInmueble.value, false);
+    const dataEntry = new DataEntry(false, false);
     if (!validarNumeroMayorACero(seguroInmueble.value)) {
         dataEntry.agregarMensaje(`El porcentaje de seguro del inmueble (%) debe ser mayor a 0.`);
     }
     else {
+        dataEntry.tieneValor = true;
         dataEntry.dato = Number(seguroInmueble.value);
         dataEntry.valido = true;
     }
@@ -360,6 +363,10 @@ limpiar.addEventListener("click", limpiarClick);
 // Agregar un manejador del evento click al botón calcular
 const calcular = document.getElementById("calcular");
 calcular.addEventListener("click", calcularClick);
+
+// Agregar un manejador del evento click al botón regresar
+const regresarSuperior = document.getElementById("regresarSuperior");
+regresarSuperior.addEventListener("click", regresarClick);
 
 // Agregar un manejador del evento click al botón regresar
 const regresar = document.getElementById("regresar");

@@ -10,44 +10,121 @@ main {
         max-width: 1200px;
 
         section {
-            div {
-                button {
-                    @extend %button_base;
+            &.busqueda {
+                background-color: map.get(variables.$colores, fondo);
+                padding: 10px;
+                margin-bottom: 10px;
+
+                div {
+                    &.filtros {
+                        display: grid;
+                        grid-template-rows: auto auto auto;
+                        grid-template-columns: 1fr 1fr;
+                        row-gap: 1px;
+                        column-gap: 1px;
+                        grid-template-areas:
+                            "filtro1 filtro2"
+                            "filtro3 filtro4"
+                            "filtro5 filtro6";
+
+                        div {
+                            &:nth-child(1) {
+                                grid-area: filtro1;
+                            }
+
+                            &:nth-child(2) {
+                                grid-area: filtro2;
+                            }
+
+                            &:nth-child(3) {
+                                grid-area: filtro3;
+                            }
+
+                            &:nth-child(4) {
+                                grid-area: filtro4;
+                            }
+
+                            &:nth-child(5) {
+                                grid-area: filtro5;
+                            }
+
+                            label {
+                                @extend %label_base;
+                            }
+
+                            input {
+                                @extend %input_base;
+
+                                &:focus {
+                                    @extend %input_focus_base;
+                                }
+                            }
+                        }
+                    }
+
+                    &.acciones {
+                        div {
+                            &:nth-child(2) {
+                                display: flex;
+                                justify-content: end;
+                            }
+
+                            button {
+                                @extend %button_base;
+
+                                &:nth-child(2) {
+                                    margin-left: 5px;
+                                }
+                            }
+                        }
+                    }
                 }
             }
+        }
 
-            div {
-                table {
-                    @extend %table_base;
+        section {
+            &.resultados {
+                margin-bottom: 10px;
 
-                    thead,
-                    tfoot {
-                        @extend %table_thead_tfoot_base;
+                div {
+                    button {
+                        @extend %button_base;
                     }
+                }
 
-                    th,
-                    td {
-                        @extend %table_tr_td_base;
-                    }
+                div {
+                    table {
+                        @extend %table_base;
 
-                    td:nth-child(1),
-                    td:nth-child(2),
-                    td:nth-child(9),
-                    td:nth-child(10) {
-                        text-align: center;
-                    }
+                        thead,
+                        tfoot {
+                            @extend %table_thead_tfoot_base;
+                        }
 
-                    td:nth-child(3),
-                    td:nth-child(4),
-                    td:nth-child(5),
-                    td:nth-child(6),
-                    td:nth-child(7),
-                    td:nth-child(8) {
-                        text-align: right;
-                    }
+                        th,
+                        td {
+                            @extend %table_tr_td_base;
+                        }
 
-                    tbody>tr:nth-of-type(even) {
-                        @extend %table_tr_even_base;
+                        td:nth-child(1),
+                        td:nth-child(2),
+                        td:nth-child(9),
+                        td:nth-child(10) {
+                            text-align: center;
+                        }
+
+                        td:nth-child(3),
+                        td:nth-child(4),
+                        td:nth-child(5),
+                        td:nth-child(6),
+                        td:nth-child(7),
+                        td:nth-child(8) {
+                            text-align: right;
+                        }
+
+                        tbody>tr:nth-of-type(even) {
+                            @extend %table_tr_even_base;
+                        }
                     }
                 }
             }

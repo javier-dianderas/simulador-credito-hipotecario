@@ -1,3 +1,17 @@
+const NRO_CUOTAS_RANGO_INICIAL = 12;
+const NRO_CUOTAS_RANGO_FINAL = 360;
+
+/**
+ * @description Completa la hora local a una fecha.
+ * @param {string} fecha - Fecha a completar. 
+ * @returns {string} Fecha completada con hora local (T00:00:00).
+ * @example
+ * completarFechaHora("2026-02-10") // se devolverá la fecha completada con T00:00:00
+ */
+const completarFechaHora = (fecha) => {
+    return `${fecha}T00:00:00`;
+}
+
 /**
  * @description Formatea una fecha de tipo Date con el formato de la fecha local.
  * @param {date} date - Fecha a formatear. 
@@ -5,14 +19,14 @@
  * @example
  * formatearFechaLocal(new Date()) // se devolverá la fecha actual con formato dd/mm/yyyy
  */
-const formatearFechaLocal = (date) => {
+const formatearFechaLocal = (dateParsed) => {
     // Si la fecha no es una instancia de Date, se devuelve vacío
-    if (!(date instanceof Date)) return "";
-    const dateParsed = new Date(date);
+    if (!(dateParsed instanceof Date)) return "";
+    // const dateParsed = new Date(date);
     const year = dateParsed.getFullYear();
     // getMonth() empieza con el indice en 0, por eso es necesario agregar 1
-    const month = String(dateParsed.getMonth() + 1).padStart(2, "0");
-    const day = String(dateParsed.getDay()).padStart(2, "0");
+    const month = String(dateParsed.getMonth() + 1).toString().padStart(2, "0");
+    const day = String(dateParsed.getDate()).toString().padStart(2, "0");
     return `${day}/${month}/${year}`;
 }
 
@@ -28,6 +42,22 @@ const validarNumeroMayorACero = (dato) => {
         || dato.trim().length <= 0
         || isNaN(Number(dato))
         || Number(dato) <= 0) {
+        return false;
+    }
+    return true;
+}
+
+/**
+ * @description Valida que la fecha sea válida, si es así devuelve true, caso contrario devuelve false.
+ * @param {date} date - Fecha a validar. 
+ * @returns {boolean} true o false.
+ * @example
+ * validarFecha(new Date()) // se devolverá true o false
+ */
+const validarFecha = (date) => {
+    if (date === null
+        // || date.trim().length <= 0
+        || !(date instanceof Date)) {
         return false;
     }
     return true;
@@ -54,17 +84,36 @@ const validarNumeroRango = (dato, limiteInferior, limiteSuperior) => {
 }
 
 /**
+ * @description Valida que el dato sea nulo, indefinido o vacio, si es así devuelve false, caso contrario devuelve true.
+ * @param {string} dato - Fecha a validar. 
+ * @returns {boolean} true o false.
+ * @example
+ * validarVacio("") // se devolverá true o false
+ */
+const validarVacio = (dato) => {
+    if (dato === null
+        || dato === undefined
+        || dato.trim().length <= 0) {
+        return false;
+    }
+    return true;
+}
+
+/**
  * Representa una entrada de datos de un formulario.
  * @class
  */
 class DataEntry {
     /**
      * Crea un nuevo data entry.
-     * @param {string} dato - Dato que ingresó el usuario.
+     * @param {boolean} tieneValor - Indica si se ingresó un valor o no.
+     * @param {object} dato - Dato que ingresó el usuario.
      * @param {boolean} valido - Indica si el dato ingresado es válido o no.
      */
-    constructor(dato, valido) {
-        this.dato = dato;
+    constructor(tieneValor, valido) {
+        // this.dato = dato;
+        this.tieneValor = tieneValor;
+        this.dato = null;
         this.valido = valido;
         this.mensajes = [];
     }
@@ -269,7 +318,7 @@ class Credito {
      */
     obtenerSeguroBienMensual() {
         //Seguro del bien mensual (fijo): Se calcula con la siguiente formula (ValorBien * SegurobienAnual) / 12 donde ValorBien = valor del bien y seguroBienAnual = porcentaje del bien para asegurarlo
-        let seguroBienAnual = this.seguroBienAnualPorcentaje / Credito.BASE_100_PORCENTUAL;
+        let seguroBienAnual = this.seguroInmueblePorcentaje / Credito.BASE_100_PORCENTUAL;
         let seguroBienMensualFijo = (this.valorInmueble * seguroBienAnual) / 12;
         return seguroBienMensualFijo;
     }

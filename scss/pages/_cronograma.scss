@@ -7,80 +7,89 @@ main {
         p {}
 
         div {
-            button {
-                @extend %button_base
+            &.datosPredeterminados {
+                button {
+                    @extend %button_base;
+                }
             }
         }
 
         div {
+            &.datosPersonalizados {
+                background-color: map.get(variables.$colores, fondo);
+                padding: 10px;
 
-            div {
-                margin-bottom: 1rem;
+                div {
+                    margin-bottom: 1rem;
 
-                label {
-                    margin-bottom: 0.5rem;
-                    display: inline-block;
-                    font-weight: bold;
-                }
+                    label {
+                        @extend %label_base;
+                    }
 
-                input {
-                    width: 100%;
-                    padding: .375rem .75rem;
-                    font-size: 1rem;
-                    font-weight: 400;
-                    border-radius: 0.375rem;
-                    border: 1px solid map.get(variables.$colores, terciario);
+                    input {
+                        width: 97%;
+                        @extend %input_base;
 
-                    &:focus {
-                        box-shadow: 0 0 0 0.25rem map.get(variables.$colores, terciario);
-                        outline: 0;
+                        &:focus {
+                            @extend %input_focus_base;
+                        }
+                    }
+
+                    ul {
+                        color: map.get(variables.$colores, primario);
                     }
                 }
 
-                ul {
-                    color: map.get(variables.$colores, primario);
-                }
-            }
-
-            button {}
-        }
-
-        div {
-            table {
-                @extend %table_base;
-
-                thead,
-                tfoot {
-                    @extend %table_thead_tfoot_base;
-                }
-
-                th,
-                td {
-                    @extend %table_tr_td_base;
-                }
-
-                td:nth-child(1),
-                td:nth-child(2) {
-                    text-align: center;
-                }
-
-                td:nth-child(3),
-                td:nth-child(4),
-                td:nth-child(5),
-                td:nth-child(6),
-                td:nth-child(7),
-                td:nth-child(8) {
-                    text-align: right;
-                }
-
-                tbody>tr:nth-of-type(even) {
-                    @extend %table_tr_even_base;
+                button {
+                    @extend %button_base;
                 }
             }
         }
 
         div {
-            button {}
+            &.resultados {
+                table {
+                    @extend %table_base;
+
+                    thead,
+                    tfoot {
+                        @extend %table_thead_tfoot_base;
+                    }
+
+                    th,
+                    td {
+                        @extend %table_tr_td_base;
+                    }
+
+                    td:nth-child(1),
+                    td:nth-child(2) {
+                        text-align: center;
+                    }
+
+                    td:nth-child(3),
+                    td:nth-child(4),
+                    td:nth-child(5),
+                    td:nth-child(6),
+                    td:nth-child(7),
+                    td:nth-child(8) {
+                        text-align: right;
+                    }
+
+                    tbody>tr:nth-of-type(even) {
+                        @extend %table_tr_even_base;
+                    }
+                }
+            }
+        }
+
+        div {
+            &.regresar {
+                margin: 10px 0px;
+
+                button {
+                    @extend %button_base
+                }
+            }
         }
     }
 }
