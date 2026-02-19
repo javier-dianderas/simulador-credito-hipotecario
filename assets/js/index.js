@@ -7,14 +7,14 @@
 const obtenerFechaDesde = () => {
     const fechaDesde = document.getElementById("fechaDesde");
     const dataEntry = new DataEntry(false, false);
-    if (validarVacio(fechaDesde.value) && !validarFecha(new Date(completarFechaHora(fechaDesde.value)))) {
+    if (validarVacio(fechaDesde.value) && !validarFecha(DateTime.fromISO(completarFechaHora(fechaDesde.value)))) {
         dataEntry.agregarMensaje(`La fecha desde debe ser válida.`);
     } else if (!validarVacio(fechaDesde.value)) {
         dataEntry.tieneValor = false;
         dataEntry.valido = true;
     } else {
         dataEntry.tieneValor = true;
-        dataEntry.dato = new Date(completarFechaHora(fechaDesde.value));
+        dataEntry.dato = DateTime.fromISO(completarFechaHora(fechaDesde.value));
         dataEntry.valido = true;
     }
     return dataEntry;
@@ -29,7 +29,7 @@ const obtenerFechaDesde = () => {
 const obtenerFechaHasta = (fechaDesde) => {
     const fechaHasta = document.getElementById("fechaHasta");
     const dataEntry = new DataEntry(false, false);
-    if (validarVacio(fechaHasta.value) && !validarFecha(new Date(completarFechaHora(fechaHasta.value)))) {
+    if (validarVacio(fechaHasta.value) && !validarFecha(DateTime.fromISO(completarFechaHora(fechaHasta.value)))) {
         dataEntry.agregarMensaje(`La fecha hasta debe ser válida.`);
     } else if (validarVacio(fechaHasta.value) && fechaDesde > completarFechaHora(fechaHasta.value)) {
         dataEntry.agregarMensaje(`La fecha hasta debe ser mayor a la fecha desde.`);
@@ -38,7 +38,7 @@ const obtenerFechaHasta = (fechaDesde) => {
         dataEntry.valido = true;
     } else {
         dataEntry.tieneValor = true;
-        dataEntry.dato = new Date(completarFechaHora(fechaHasta.value));
+        dataEntry.dato = DateTime.fromISO(completarFechaHora(fechaHasta.value));
         dataEntry.valido = true;
     }
     return dataEntry;
@@ -365,7 +365,7 @@ const buscarClick = () => {
 
     const simulador = new Simulador();
     let creditos = simulador.creditos.map((c) => {
-        return new Credito(c.id, new Date(c.fechaHora), c.valorInmueble, c.cuotaInicial, c.teaPorcentaje, c.nroCuotas, c.seguroDesgravamenMensualPorcentaje, c.seguroInmueblePorcentaje, new Date(c.fechaDesembolso));
+        return new Credito(c.id, DateTime.fromISO(c.fechaHora), c.valorInmueble, c.cuotaInicial, c.teaPorcentaje, c.nroCuotas, c.seguroDesgravamenMensualPorcentaje, c.seguroInmueblePorcentaje, DateTime.fromISO(c.fechaDesembolso));
     });
     // Filtrar fechaDesde
     if (fechaDesdeDataEntry.tieneValor) {
@@ -528,7 +528,7 @@ const index = () => {
     const simulador = new Simulador();
     // Se crean los objetos crédito en base a la información recuperada del local storage
     const creditos = simulador.creditos.map((c) => {
-        return new Credito(c.id, new Date(c.fechaHora), c.valorInmueble, c.cuotaInicial, c.teaPorcentaje, c.nroCuotas, c.seguroDesgravamenMensualPorcentaje, c.seguroInmueblePorcentaje, new Date(c.fechaDesembolso));
+        return new Credito(c.id, DateTime.fromISO(c.fechaHora), c.valorInmueble, c.cuotaInicial, c.teaPorcentaje, c.nroCuotas, c.seguroDesgravamenMensualPorcentaje, c.seguroInmueblePorcentaje, DateTime.fromISO(c.fechaDesembolso));
     });
     // Se muestran los créditos
     mostrarCreditos(creditos);

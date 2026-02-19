@@ -328,14 +328,13 @@ const calcularClick = () => {
     let cuotaInicial = cuotaInicialDataEntry.dato;
     let teaPorcentaje = teaPorcentajeDataEntry.dato;
     let nroCuotas = nroCuotasDataEntry.dato;
-    // La fecha de desembolso es la fecha en la que se simula el cronograma
-    let fechaDesembolso = new Date();
     let seguroDesgravamenMensualPorcentaje = seguroDesgravamenMensualPorcentajeDataEntry.dato;
     let seguroBienAnualPorcentaje = seguroBienAnualPorcentajeDataEntry.dato;
 
     // Se genera el cronograma
     const simulador = new Simulador();
-    const cuotas = simulador.generarCronograma(new Date(), valorInmueble, cuotaInicial, teaPorcentaje, nroCuotas, seguroDesgravamenMensualPorcentaje, seguroBienAnualPorcentaje, fechaDesembolso);
+    const now = DateTime.utc();
+    const cuotas = simulador.generarCronograma(now, valorInmueble, cuotaInicial, teaPorcentaje, nroCuotas, seguroDesgravamenMensualPorcentaje, seguroBienAnualPorcentaje, now);
     // Se muestra el cronograma
     mostrarCronograma(cuotas);
 }
@@ -385,7 +384,7 @@ const cronograma = () => {
         if (credito !== undefined) {
             mostrarDatos(credito.valorInmueble, credito.cuotaInicial, credito.teaPorcentaje, credito.nroCuotas, credito.seguroDesgravamenMensualPorcentaje, credito.seguroInmueblePorcentaje); //credito.fechaDesembolso            
             const cuotas = credito.cuotas.map((c) => {
-                return new Cuota(c.nroCuota, new Date(c.fechaVencimiento), c.amortizacion, c.interes, c.seguroDesgravamen, c.seguroBien, c.montoCuota, c.saldoCapital)
+                return new Cuota(c.nroCuota, DateTime.fromISO(c.fechaVencimiento), c.amortizacion, c.interes, c.seguroDesgravamen, c.seguroBien, c.montoCuota, c.saldoCapital)
             });
             mostrarCronograma(cuotas);
             const usarDatosPredeterminados = document.getElementById("usarDatosPredeterminados");

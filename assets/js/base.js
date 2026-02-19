@@ -1,3 +1,6 @@
+// Alias para la clase DateTime de librería Luxon
+var DateTime = luxon.DateTime;
+
 // Constantes con los rangos para las cuotas
 const NRO_CUOTAS_RANGO_INICIAL = 12;
 const NRO_CUOTAS_RANGO_FINAL = 360;
@@ -18,17 +21,14 @@ const completarFechaHora = (fecha) => {
  * @param {date} date - Fecha a formatear. 
  * @returns {string} Vacío o fecha formateada con dd/mm/yyyy.
  * @example
- * formatearFechaLocal(new Date()) // se devolverá la fecha actual con formato dd/mm/yyyy
+ * formatearFechaLocal(new DateTime.now()) // se devolverá la fecha actual con formato dd/mm/yyyy
  */
 const formatearFechaLocal = (dateParsed) => {
-    // Si la fecha no es una instancia de Date, se devuelve vacío
-    if (!(dateParsed instanceof Date)) return "";
-    // const dateParsed = new Date(date);
-    const year = dateParsed.getFullYear();
-    // getMonth() empieza con el indice en 0, por eso es necesario agregar 1
-    const month = String(dateParsed.getMonth() + 1).toString().padStart(2, "0");
-    const day = String(dateParsed.getDate()).toString().padStart(2, "0");
-    return `${day}/${month}/${year}`;
+    // Si la fecha no es una instancia de DateTime de Luxon, se devuelve vacío
+    if (!(dateParsed instanceof DateTime)) return "";
+    const month = String(dateParsed.month).toString().padStart(2, "0");
+    const day = String(dateParsed.day).toString().padStart(2, "0");
+    return `${day}/${month}/${dateParsed.year}`;
 }
 
 /**
@@ -53,12 +53,11 @@ const validarNumeroMayorACero = (dato) => {
  * @param {date} date - Fecha a validar. 
  * @returns {boolean} true o false.
  * @example
- * validarFecha(new Date()) // se devolverá true o false
+ * validarFecha(DateTime.now()) // se devolverá true o false
  */
 const validarFecha = (date) => {
     if (date === null
-        // || date.trim().length <= 0
-        || !(date instanceof Date)) {
+        || !(date instanceof DateTime)) {
         return false;
     }
     return true;
@@ -358,7 +357,8 @@ class Credito {
             // Se calcula el saldo capital despues de pagada la cuota
             let saldoCapital = saldoCapitalAnterior - amortizacion;
             // Se calcula la fecha de vencimiento de la cuota
-            let fechaVencimiento = new Date(new Date(fechaVencimientoAnterior).setMonth(fechaVencimientoAnterior.getMonth() + 1));
+            // let fechaVencimiento = new Date(new Date(fechaVencimientoAnterior).setMonth(fechaVencimientoAnterior.getMonth() + 1));
+            let fechaVencimiento = fechaVencimientoAnterior.plus({ months: 1 });
 
             // Se crea el objeto cuota
             const cuota = new Cuota(
