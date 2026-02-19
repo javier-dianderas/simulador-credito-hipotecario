@@ -281,11 +281,12 @@ const limpiarClick = () => {
 }
 
 /**
- * @description Manejador del evento click para calcular el cronograma de pago.
+ * @description Manejador del evento submit para calcular el cronograma de pago.
  * @example
- * calcularClick()
+ * calcularSubmit(event)
  */
-const calcularClick = () => {
+const calcularSubmit = (event) => {
+    event.preventDefault();
     let hayErrores = false;
     eliminarMensajesError();
     eliminarFilasResultado();
@@ -356,9 +357,9 @@ usarDatosPredeterminados.addEventListener("click", usarDatosPredeterminadosClick
 const limpiar = document.getElementById("limpiar");
 limpiar.addEventListener("click", limpiarClick);
 
-// Agregar un manejador del evento click al botón calcular
-const calcular = document.getElementById("calcular");
-calcular.addEventListener("click", calcularClick);
+// Agregar un manejador del evento submit en el formulario
+const formulario = document.getElementById("formulario");
+formulario.addEventListener("submit", calcularSubmit);
 
 // Agregar un manejador del evento click al botón regresar de la parte superior
 const regresarSuperior = document.getElementById("regresarSuperior");

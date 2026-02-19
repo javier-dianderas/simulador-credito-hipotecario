@@ -299,11 +299,12 @@ const limpiarClick = () => {
 }
 
 /**
- * @description Manejador del evento click para buscar créditos.
+ * @description Manejador del evento submit para buscar créditos.
  * @example
- * buscarClick()
+ * buscarSubmit(event)
  */
-const buscarClick = () => {
+const buscarSubmit = (event) => {
+    event.preventDefault();
     let hayErrores = false;
     eliminarMensajesError();
     eliminarFilasResultado();
@@ -515,9 +516,9 @@ agregarCredito.addEventListener("click", agregarCreditoClick);
 const limpiar = document.getElementById("limpiar");
 limpiar.addEventListener("click", limpiarClick);
 
-// Agregar un manejador del evento click al botón buscar
-const buscar = document.getElementById("buscar");
-buscar.addEventListener("click", buscarClick);
+// Agregar un manejador del evento submit al formulario
+const formulario = document.getElementById("formulario");
+formulario.addEventListener("submit", buscarSubmit);
 
 /**
  * @description Manejador de la página principal. Si hay créditos en el local storage se muestran en la página

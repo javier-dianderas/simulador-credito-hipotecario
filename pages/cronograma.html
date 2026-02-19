@@ -21,38 +21,40 @@
                 <button id="usarDatosPredeterminados">Usar datos predeterminados</button>
             </div>
             <p>o ingresando datos personalizados:</p>
-            <div class="datosPersonalizados">
-                <div>
-                    <label>Valor Inmueble:</label>
-                    <input id="valorInmueble" type="text">
+            <form id="formulario">
+                <div class="datosPersonalizados">
+                    <div>
+                        <label>Valor Inmueble:</label>
+                        <input id="valorInmueble" type="text">
+                    </div>
+                    <div>
+                        <label>Cuota Inicial:</label>
+                        <input id="cuotaInicial" type="text">
+                    </div>
+                    <div>
+                        <label>TEA (%):</label>
+                        <input id="tea" type="text">
+                    </div>
+                    <div>
+                        <label>Nro. Cuotas:</label>
+                        <input id="nroCuotas" type="text">
+                    </div>
+                    <div>
+                        <label>Seguro Desgravamen Mensual (%):</label>
+                        <input id="seguroDesgravamenMensual" type="text">
+                    </div>
+                    <div>
+                        <label>Seguro Inmueble (%):</label>
+                        <input id="seguroInmueble" type="text">
+                    </div>
+                    <div id="panelMensajes">
+                        <ul id="listaMensajes">
+                        </ul>
+                    </div>
+                    <button id="calcular" type="submit">Calcular</button>
+                    <button id="limpiar" type="button">Limpiar</button>
                 </div>
-                <div>
-                    <label>Cuota Inicial:</label>
-                    <input id="cuotaInicial" type="text">
-                </div>
-                <div>
-                    <label>TEA (%):</label>
-                    <input id="tea" type="text">
-                </div>
-                <div>
-                    <label>Nro. Cuotas:</label>
-                    <input id="nroCuotas" type="text">
-                </div>
-                <div>
-                    <label>Seguro Desgravamen Mensual (%):</label>
-                    <input id="seguroDesgravamenMensual" type="text">
-                </div>
-                <div>
-                    <label>Seguro Inmueble (%):</label>
-                    <input id="seguroInmueble" type="text">
-                </div>
-                <div id="panelMensajes">
-                    <ul id="listaMensajes">
-                    </ul>
-                </div>
-                <button id="calcular" type="button">Calcular</button>
-                <button id="limpiar" type="button">Limpiar</button>
-            </div>
+            </form>
 
             <div class="regresar">
                 <button id="regresarSuperior" type="button">Regresar</button>
