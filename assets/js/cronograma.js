@@ -338,6 +338,17 @@ const calcularSubmit = (event) => {
     const cuotas = simulador.generarCronograma(now, valorInmueble, cuotaInicial, teaPorcentaje, nroCuotas, seguroDesgravamenMensualPorcentaje, seguroBienAnualPorcentaje, now);
     // Se muestra el cronograma
     mostrarCronograma(cuotas);
+
+    // Se muestra mensaje de confirmación en Toastify
+    Toastify({
+        text: "¡Cronograma generado exitosamente!",
+        gravity: "top",
+        position: "right",
+        close: true,
+        style: {
+            background: "rgba(11,156,49,0.8)"
+        }
+    }).showToast();
 }
 
 /**

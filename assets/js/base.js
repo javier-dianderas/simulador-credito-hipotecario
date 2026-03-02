@@ -460,4 +460,27 @@ class Simulador {
         }
         return undefined;
     }
+
+    /**
+     * @description Obtiene datos de un archivo y guarda créditos en localstorage.
+     * @returns {Array} Devuelve los créditos de un archivo.
+     * @example
+     * let creditos = obtenerCreditosInicial(); // credito obtiene los creditos en un archivo
+     */
+    async obtenerCreditosInicial() {
+        const archivo = "assets/data/datos.json";
+        try {
+            const respuesta = await fetch(archivo);
+            const datos = await respuesta.json();
+            this.creditos = datos.map((c) => {
+                return new Credito(c.id, DateTime.fromISO(c.fechaHora), c.valorInmueble, c.cuotaInicial, c.teaPorcentaje, c.nroCuotas, c.seguroDesgravamenMensualPorcentaje, c.seguroInmueblePorcentaje, DateTime.fromISO(c.fechaDesembolso));
+            });
+            this.guardarCreditos();
+            return this.creditos;
+        }
+        catch (error) {
+            log.error(`Ocurrió un error al obtener de ${archivo}`, error);
+        }
+        return [];
+    }
 }

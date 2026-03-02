@@ -525,12 +525,18 @@ formulario.addEventListener("submit", buscarSubmit);
  * @example
  * cronograma()
  */
-const index = () => {
+const index = async () => {
     const simulador = new Simulador();
     // Se crean los objetos crédito en base a la información recuperada del local storage
-    const creditos = simulador.creditos.map((c) => {
+    let creditos = simulador.creditos.map((c) => {
         return new Credito(c.id, DateTime.fromISO(c.fechaHora), c.valorInmueble, c.cuotaInicial, c.teaPorcentaje, c.nroCuotas, c.seguroDesgravamenMensualPorcentaje, c.seguroInmueblePorcentaje, DateTime.fromISO(c.fechaDesembolso));
     });
+    // Si no hay creditos en el storage se obtienen créditos iniciales del archivo datos.json
+    if (creditos.length <= 0) {
+        creditos = await simulador.obtenerCreditosInicial();
+    }
+
+
     // Se muestran los créditos
     mostrarCreditos(creditos);
 }
