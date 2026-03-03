@@ -178,48 +178,62 @@ const eliminarFilasResultado = () => {
 
 /**
  * @description Muestra las cuotas del crédito hipotecario en una tabla.
- * @param {Array} cuotas - Array con todas las cuotas de un cronograma.
+ * @param {Array} cuotas - Array con todas las cuotas generadas.
+ * @param {Promise} - Promise para actualizar la tabla de cuotas.
  * @example
- * mostrarCronograma(cuotas);
+ * mostrarCronogramaPromise(cuotas);
  */
-const mostrarCronograma = (cuotas) => {
-    cuotas.forEach((cuota) => {
-        const filas = document.getElementById("filas");
-        const fila = document.createElement("tr");
-        // <td>Nro. cuota</td>
-        const nroCuota = document.createElement("td");
-        nroCuota.innerText = cuota.nroCuota;
-        fila.appendChild(nroCuota);
-        // <td>Fecha de vencimiento</td>
-        const fechaVencimiento = document.createElement("td");
-        fechaVencimiento.innerText = cuota.fechaVencimientoFormat;
-        fila.appendChild(fechaVencimiento);
-        // <td>Amortización</td>
-        const amortizacion = document.createElement("td");
-        amortizacion.innerText = cuota.amortizacionFixed;
-        fila.appendChild(amortizacion);
-        // <td>Interés</td>
-        const interes = document.createElement("td");
-        interes.innerText = cuota.interesFixed;
-        fila.appendChild(interes);
-        // <td>Seguro de desgravamen</td>
-        const seguroDesgravamen = document.createElement("td");
-        seguroDesgravamen.innerText = cuota.seguroDesgravamenFixed;
-        fila.appendChild(seguroDesgravamen);
-        // <td>Seguro del bien</td>
-        const seguroBien = document.createElement("td");
-        seguroBien.innerText = cuota.seguroBienFixed;
-        fila.appendChild(seguroBien);
-        // <td>Monto cuota</td>
-        const montoCuota = document.createElement("td");
-        montoCuota.innerText = cuota.montoCuotaFixed;
-        fila.appendChild(montoCuota);
-        // <td>Seguro del capital</td>
-        const saldoCapital = document.createElement("td");
-        saldoCapital.innerText = cuota.saldoCapitalFixed;
-        fila.appendChild(saldoCapital);
-        filas.appendChild(fila);
-    });
+const mostrarCronogramaPromise = (cuotas) => {
+
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+
+            try {
+                cuotas.forEach((cuota) => {
+                    const filas = document.getElementById("filas");
+                    const fila = document.createElement("tr");
+                    // <td>Nro. cuota</td>
+                    const nroCuota = document.createElement("td");
+                    nroCuota.innerText = cuota.nroCuota;
+                    fila.appendChild(nroCuota);
+                    // <td>Fecha de vencimiento</td>
+                    const fechaVencimiento = document.createElement("td");
+                    fechaVencimiento.innerText = cuota.fechaVencimientoFormat;
+                    fila.appendChild(fechaVencimiento);
+                    // <td>Amortización</td>
+                    const amortizacion = document.createElement("td");
+                    amortizacion.innerText = cuota.amortizacionFixed;
+                    fila.appendChild(amortizacion);
+                    // <td>Interés</td>
+                    const interes = document.createElement("td");
+                    interes.innerText = cuota.interesFixed;
+                    fila.appendChild(interes);
+                    // <td>Seguro de desgravamen</td>
+                    const seguroDesgravamen = document.createElement("td");
+                    seguroDesgravamen.innerText = cuota.seguroDesgravamenFixed;
+                    fila.appendChild(seguroDesgravamen);
+                    // <td>Seguro del bien</td>
+                    const seguroBien = document.createElement("td");
+                    seguroBien.innerText = cuota.seguroBienFixed;
+                    fila.appendChild(seguroBien);
+                    // <td>Monto cuota</td>
+                    const montoCuota = document.createElement("td");
+                    montoCuota.innerText = cuota.montoCuotaFixed;
+                    fila.appendChild(montoCuota);
+                    // <td>Seguro del capital</td>
+                    const saldoCapital = document.createElement("td");
+                    saldoCapital.innerText = cuota.saldoCapitalFixed;
+                    fila.appendChild(saldoCapital);
+                    filas.appendChild(fila);
+                });
+                resolve(true);
+            }
+            catch (error) {
+                reject(error);
+            }
+
+        }, 1000);
+    })
 }
 
 /**
@@ -287,6 +301,7 @@ const limpiarClick = () => {
  */
 const calcularSubmit = (event) => {
     event.preventDefault();
+
     let hayErrores = false;
     eliminarMensajesError();
     eliminarFilasResultado();
@@ -332,23 +347,50 @@ const calcularSubmit = (event) => {
     let seguroDesgravamenMensualPorcentaje = seguroDesgravamenMensualPorcentajeDataEntry.dato;
     let seguroBienAnualPorcentaje = seguroBienAnualPorcentajeDataEntry.dato;
 
-    // Se genera el cronograma
-    const simulador = new Simulador();
-    const now = DateTime.utc();
-    const cuotas = simulador.generarCronograma(now, valorInmueble, cuotaInicial, teaPorcentaje, nroCuotas, seguroDesgravamenMensualPorcentaje, seguroBienAnualPorcentaje, now);
-    // Se muestra el cronograma
-    mostrarCronograma(cuotas);
+    Swal.fire({
+        title: "¿Estás seguro que deseas calcular el cronograma?",
+        showCancelButton: true,
+        confirmButtonText: "Aceptar",
+        denyButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
 
-    // Se muestra mensaje de confirmación en Toastify
-    Toastify({
-        text: "¡Cronograma generado exitosamente!",
-        gravity: "top",
-        position: "right",
-        close: true,
-        style: {
-            background: "rgba(11,156,49,0.8)"
+            // Se genera el cronograma
+            const simulador = new Simulador();
+            const now = DateTime.utc();
+            const cuotas = simulador.generarCronograma(now, valorInmueble, cuotaInicial, teaPorcentaje, nroCuotas, seguroDesgravamenMensualPorcentaje, seguroBienAnualPorcentaje, now);
+            // Se muestra el cronograma
+            mostrarCronogramaPromise(cuotas)
+                .then((resultado) => {
+                    if (resultado) {
+                        // Se muestra mensaje de confirmación en Toastify
+                        Toastify({
+                            text: "¡Cronograma generado exitosamente!",
+                            gravity: "top",
+                            position: "right",
+                            close: true,
+                            style: {
+                                background: "rgba(11,156,49,0.8)"
+                            }
+                        }).showToast();
+                    }
+                })
+                .catch((error) => {
+                    console.warn("Ocurrió un error en calcularSubmit", error);
+
+                    Toastify({
+                        text: "No se pudo generar el cronograma. Vuelte a intentarlo mas tarde!",
+                        gravity: "top",
+                        position: "right",
+                        close: true,
+                        style: {
+                            background: "rgba(156, 11, 11, 0.8)"
+                        }
+                    }).showToast();
+                });
+
         }
-    }).showToast();
+    });
 }
 
 /**
@@ -398,13 +440,18 @@ const cronograma = () => {
             const cuotas = credito.cuotas.map((c) => {
                 return new Cuota(c.nroCuota, DateTime.fromISO(c.fechaVencimiento), c.amortizacion, c.interes, c.seguroDesgravamen, c.seguroBien, c.montoCuota, c.saldoCapital)
             });
-            mostrarCronograma(cuotas);
             const usarDatosPredeterminados = document.getElementById("usarDatosPredeterminados");
             usarDatosPredeterminados.disabled = true;
             const calcular = document.getElementById("calcular");
             calcular.disabled = true;
             const limpiar = document.getElementById("limpiar");
             limpiar.disabled = true;
+            mostrarCronogramaPromise(cuotas)
+                .then((resultado) => {
+                })
+                .catch((error) => {
+                    console.warn("Ocurrió un error en cronograma", error);
+                });
         }
     }
 }

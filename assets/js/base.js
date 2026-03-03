@@ -1,4 +1,5 @@
 // Alias para la clase DateTime de librería Luxon
+// Usar "var" es una mala práctica, pero asi lo recomienda la documentación de Luxon, para que sea un alias global de luxon.DateTime
 var DateTime = luxon.DateTime;
 
 // Constantes con los rangos para las cuotas
@@ -479,7 +480,7 @@ class Simulador {
             return this.creditos;
         }
         catch (error) {
-            log.error(`Ocurrió un error al obtener de ${archivo}`, error);
+            console.warn(`Ocurrió un error al obtener de ${archivo}`, error);
         }
         return [];
     }

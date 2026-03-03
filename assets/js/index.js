@@ -31,14 +31,14 @@ const obtenerFechaHasta = (fechaDesde) => {
     const dataEntry = new DataEntry(false, false);
     if (validarVacio(fechaHasta.value) && !validarFecha(DateTime.fromISO(completarFechaHora(fechaHasta.value)))) {
         dataEntry.agregarMensaje(`La fecha hasta debe ser válida.`);
-    } else if (validarVacio(fechaHasta.value) && fechaDesde > completarFechaHora(fechaHasta.value)) {
-        dataEntry.agregarMensaje(`La fecha hasta debe ser mayor a la fecha desde.`);
+    } else if (validarVacio(fechaHasta.value) && fechaDesde >= DateTime.fromISO(completarFechaHora(fechaHasta.value)).plus({ days: 1 })) {
+        dataEntry.agregarMensaje(`La fecha hasta debe ser mayor o igual a la fecha desde.`);
     } else if (!validarVacio(fechaHasta.value)) {
         dataEntry.tieneValor = false;
         dataEntry.valido = true;
     } else {
         dataEntry.tieneValor = true;
-        dataEntry.dato = DateTime.fromISO(completarFechaHora(fechaHasta.value));
+        dataEntry.dato = DateTime.fromISO(completarFechaHora(fechaHasta.value)).plus({ days: 1 });
         dataEntry.valido = true;
     }
     return dataEntry;
@@ -77,8 +77,8 @@ const obtenerValorInmuebleHasta = (valorInmuebleDesde) => {
     const dataEntry = new DataEntry(false, false);
     if (validarVacio(valorInmuebleHasta.value) && !validarNumeroMayorACero(valorInmuebleHasta.value)) {
         dataEntry.agregarMensaje(`El valor del inmueble hasta debe ser mayor a 0.`);
-    } else if (validarVacio(valorInmuebleHasta.value) && valorInmuebleDesde >= Number(valorInmuebleHasta.value)) {
-        dataEntry.agregarMensaje(`El valor del inmueble hasta debe ser mayor al valor del inmueble desde.`);
+    } else if (validarVacio(valorInmuebleHasta.value) && valorInmuebleDesde > Number(valorInmuebleHasta.value)) {
+        dataEntry.agregarMensaje(`El valor del inmueble hasta debe ser mayor o igual al valor del inmueble desde.`);
     } else if (!validarVacio(valorInmuebleHasta.value)) {
         dataEntry.tieneValor = false;
         dataEntry.valido = true;
@@ -123,8 +123,8 @@ const obtenerCuotaInicialHasta = (cuotaInicialDesde) => {
     const dataEntry = new DataEntry(false, false);
     if (validarVacio(cuotaInicialHasta.value) && !validarNumeroMayorACero(cuotaInicialHasta.value)) {
         dataEntry.agregarMensaje(`La cuota inicial hasta debe ser mayor a 0.`);
-    } else if (validarVacio(cuotaInicialHasta.value) && cuotaInicialDesde >= Number(cuotaInicialHasta.value)) {
-        dataEntry.agregarMensaje(`La cuota inicial hasta debe ser mayor a la cuota inicial desde.`);
+    } else if (validarVacio(cuotaInicialHasta.value) && cuotaInicialDesde > Number(cuotaInicialHasta.value)) {
+        dataEntry.agregarMensaje(`La cuota inicial hasta debe ser mayor o igual a la cuota inicial desde.`);
     } else if (!validarVacio(cuotaInicialHasta.value)) {
         dataEntry.tieneValor = false;
         dataEntry.valido = true;
@@ -169,8 +169,8 @@ const obtenerTeaHasta = (teaDesde) => {
     const dataEntry = new DataEntry(false, false);
     if (validarVacio(teaHasta.value) && !validarNumeroMayorACero(teaHasta.value)) {
         dataEntry.agregarMensaje(`La TEA (%) hasta debe ser mayor a 0.`);
-    } else if (validarVacio(teaHasta.value) && teaDesde >= Number(teaHasta.value)) {
-        dataEntry.agregarMensaje(`La TEA (%) hasta debe ser mayor a la TEA (%) desde.`);
+    } else if (validarVacio(teaHasta.value) && teaDesde > Number(teaHasta.value)) {
+        dataEntry.agregarMensaje(`La TEA (%) hasta debe ser mayor o igual a la TEA (%) desde.`);
     } else if (!validarVacio(teaHasta.value)) {
         dataEntry.tieneValor = false;
         dataEntry.valido = true;
@@ -215,8 +215,8 @@ const obtenerNroCuotasHasta = (nroCuotasDesde) => {
     const dataEntry = new DataEntry(false, false);
     if (validarVacio(nroCuotasHasta.value) && !validarNumeroRango(nroCuotasHasta.value, NRO_CUOTAS_RANGO_INICIAL, NRO_CUOTAS_RANGO_FINAL)) {
         dataEntry.agregarMensaje(`El número de cuotas hasta debe ser entre 12 y 360.`);
-    } else if (validarVacio(nroCuotasHasta.value) && nroCuotasDesde >= Number(nroCuotasHasta.value)) {
-        dataEntry.agregarMensaje(`El número de cuotas hasta debe ser mayor al número de cuotas desde.`);
+    } else if (validarVacio(nroCuotasHasta.value) && nroCuotasDesde > Number(nroCuotasHasta.value)) {
+        dataEntry.agregarMensaje(`El número de cuotas hasta debe ser mayor o igual al número de cuotas desde.`);
     } else if (!validarVacio(nroCuotasHasta.value)) {
         dataEntry.tieneValor = false;
         dataEntry.valido = true;
@@ -383,52 +383,58 @@ const buscarSubmit = (event) => {
     // Filtrar valorInmuebleDesde
     if (valorInmuebleDesdeDataEntry.tieneValor) {
         creditos = creditos.filter((c) => {
-            return c.valorInmueble > Number(valorInmuebleDesdeDataEntry.dato);
+            return c.valorInmueble >= Number(valorInmuebleDesdeDataEntry.dato);
         });
     }
     // Filtrar valorInmuebleHasta
     if (valorInmuebleHastaDataEntry.tieneValor) {
         creditos = creditos.filter((c) => {
-            return c.valorInmueble < Number(valorInmuebleHastaDataEntry.dato);
+            return c.valorInmueble <= Number(valorInmuebleHastaDataEntry.dato);
         });
     }
     // Filtrar cuotaInicialDesde
     if (cuotaInicialDesdeDataEntry.tieneValor) {
         creditos = creditos.filter((c) => {
-            return c.cuotaInicial > Number(cuotaInicialDesdeDataEntry.dato);
+            return c.cuotaInicial >= Number(cuotaInicialDesdeDataEntry.dato);
         });
     }
     // Filtrar cuotaInicialHasta
     if (cuotaInicialHastaDataEntry.tieneValor) {
         creditos = creditos.filter((c) => {
-            return c.cuotaInicial < Number(cuotaInicialHastaDataEntry.dato);
+            return c.cuotaInicial <= Number(cuotaInicialHastaDataEntry.dato);
         });
     }
     // Filtrar teaDesde
     if (teaDesdeDataEntry.tieneValor) {
         creditos = creditos.filter((c) => {
-            return c.teaPorcentaje > Number(teaDesdeDataEntry.dato);
+            return c.teaPorcentaje >= Number(teaDesdeDataEntry.dato);
         });
     }
     // Filtrar teaHasta
     if (teaHastaDataEntry.tieneValor) {
         creditos = creditos.filter((c) => {
-            return c.teaPorcentaje < Number(teaHastaDataEntry.dato);
+            return c.teaPorcentaje <= Number(teaHastaDataEntry.dato);
         });
     }
     // Filtrar nroCuotasDesde
     if (nroCuotasDesdeDataEntry.tieneValor) {
         creditos = creditos.filter((c) => {
-            return c.nroCuotas > Number(nroCuotasDesdeDataEntry.dato);
+            return c.nroCuotas >= Number(nroCuotasDesdeDataEntry.dato);
         });
     }
     // Filtrar nroCuotasHasta
     if (nroCuotasHastaDataEntry.tieneValor) {
         creditos = creditos.filter((c) => {
-            return c.nroCuotas < Number(nroCuotasHastaDataEntry.dato);
+            return c.nroCuotas <= Number(nroCuotasHastaDataEntry.dato);
         });
     }
-    mostrarCreditos(creditos);
+    // Se muestran los créditos
+    mostrarCreditosPromise(creditos)
+        .then((resultado) => {
+        })
+        .catch((error) => {
+            console.warn("Ocurrió un error en index", error);
+        });
 }
 
 /**
@@ -451,60 +457,74 @@ const verCreditoClick = (id) => {
 
 /**
  * @description Muestra los créditos en una tabla.
- * @param {Array} creditos - Array con todos los créditos generados.
+ * @param {Array} creditos - Array con todos los créditos.
+ * @param {Promise} - Promise para actualizar la tabla de créditos.
  * @example
- * mostrarCreditos(creditos);
+ * mostrarCreditosPromise(creditos);
  */
-const mostrarCreditos = (creditos) => {
-    creditos.forEach(credito => {
-        const filasCreditos = document.getElementById("filasCreditos");
-        const fila = document.createElement("tr");
+const mostrarCreditosPromise = (creditos) => {
 
-        const id = document.createElement("td");
-        id.innerText = credito.id;
-        fila.appendChild(id);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
 
-        const fechaHora = document.createElement("td");
-        fechaHora.innerText = credito.fechaHoraFormat;
-        fila.appendChild(fechaHora);
+            try {
+                creditos.forEach(credito => {
+                    const filasCreditos = document.getElementById("filasCreditos");
+                    const fila = document.createElement("tr");
 
-        const valorInmueble = document.createElement("td");
-        valorInmueble.innerText = credito.valorInmueble;
-        fila.appendChild(valorInmueble);
+                    const id = document.createElement("td");
+                    id.innerText = credito.id;
+                    fila.appendChild(id);
 
-        const cuotaInicial = document.createElement("td");
-        cuotaInicial.innerText = credito.cuotaInicial;
-        fila.appendChild(cuotaInicial);
+                    const fechaHora = document.createElement("td");
+                    fechaHora.innerText = credito.fechaHoraFormat;
+                    fila.appendChild(fechaHora);
 
-        const teaPorcentaje = document.createElement("td");
-        teaPorcentaje.innerText = credito.teaPorcentaje;
-        fila.appendChild(teaPorcentaje);
+                    const valorInmueble = document.createElement("td");
+                    valorInmueble.innerText = credito.valorInmueble;
+                    fila.appendChild(valorInmueble);
 
-        const nroCuotas = document.createElement("td");
-        nroCuotas.innerText = credito.nroCuotas;
-        fila.appendChild(nroCuotas);
+                    const cuotaInicial = document.createElement("td");
+                    cuotaInicial.innerText = credito.cuotaInicial;
+                    fila.appendChild(cuotaInicial);
 
-        const seguroDesgravamenMensualPorcentaje = document.createElement("td");
-        seguroDesgravamenMensualPorcentaje.innerText = credito.seguroDesgravamenMensualPorcentaje;
-        fila.appendChild(seguroDesgravamenMensualPorcentaje);
+                    const teaPorcentaje = document.createElement("td");
+                    teaPorcentaje.innerText = credito.teaPorcentaje;
+                    fila.appendChild(teaPorcentaje);
 
-        const seguroInmueblePorcentaje = document.createElement("td");
-        seguroInmueblePorcentaje.innerText = credito.seguroInmueblePorcentaje;
-        fila.appendChild(seguroInmueblePorcentaje);
+                    const nroCuotas = document.createElement("td");
+                    nroCuotas.innerText = credito.nroCuotas;
+                    fila.appendChild(nroCuotas);
 
-        const fechaDesembolso = document.createElement("td");
-        fechaDesembolso.innerText = credito.fechaDesembolsoFormat;
-        fila.appendChild(fechaDesembolso);
+                    const seguroDesgravamenMensualPorcentaje = document.createElement("td");
+                    seguroDesgravamenMensualPorcentaje.innerText = credito.seguroDesgravamenMensualPorcentaje;
+                    fila.appendChild(seguroDesgravamenMensualPorcentaje);
 
-        const ver = document.createElement("td");
-        const botonVer = document.createElement("button");
-        botonVer.innerText = "Ver";
-        botonVer.addEventListener("click", function () {
-            verCreditoClick(credito.id);
-        });
-        ver.appendChild(botonVer);
-        fila.appendChild(ver);
-        filasCreditos.appendChild(fila);
+                    const seguroInmueblePorcentaje = document.createElement("td");
+                    seguroInmueblePorcentaje.innerText = credito.seguroInmueblePorcentaje;
+                    fila.appendChild(seguroInmueblePorcentaje);
+
+                    const fechaDesembolso = document.createElement("td");
+                    fechaDesembolso.innerText = credito.fechaDesembolsoFormat;
+                    fila.appendChild(fechaDesembolso);
+
+                    const ver = document.createElement("td");
+                    const botonVer = document.createElement("button");
+                    botonVer.innerText = "Ver";
+                    botonVer.addEventListener("click", function () {
+                        verCreditoClick(credito.id);
+                    });
+                    ver.appendChild(botonVer);
+                    fila.appendChild(ver);
+                    filasCreditos.appendChild(fila);
+                });
+                resolve(true);
+            }
+            catch (error) {
+                reject(error);
+            }
+
+        }, 1000);
     });
 }
 
@@ -536,9 +556,13 @@ const index = async () => {
         creditos = await simulador.obtenerCreditosInicial();
     }
 
-
     // Se muestran los créditos
-    mostrarCreditos(creditos);
+    mostrarCreditosPromise(creditos)
+        .then((resultado) => {
+        })
+        .catch((error) => {
+            console.warn("Ocurrió un error en index", error);
+        });
 }
 
 // Ejecutar la función principal de la página
