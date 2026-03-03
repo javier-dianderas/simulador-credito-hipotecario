@@ -4,7 +4,7 @@ El simulador genera un cronograma de pago en base a los datos ingresados (basado
 
 ## Instalación
 
-- Abre una consola de comandos y crea una carpeta en la raiz con el comando **mkdir simulador**.
+- Abre una **consola de comandos** y crea una carpeta en la raiz con el comando **mkdir simulador**.
 - Ingresa a la carpeta recien creada con el comando **cd simulador**.
 - Clona el repositorio con el comando **git clone https://github.com/javier-dianderas/simulador-credito-hipotecario.git**.
 - Inicia la página **index.html** en un navegador ubicada dentro de la carpeta **simulador-credito-hipotecario**.
@@ -33,17 +33,17 @@ Permite buscar créditos por distintos criterios:
 
 - **Fecha:** Fecha y hora en la que se generó el crédito.
 - **Valor Inmueble:** Valor del inmueble.
-- **Cuota Inicial:** Monto deducible del valor del inmueble.
-- **TEA (%):** Porcentaje de la Tasa Efectiva Anual del préstamo hipotecario.
+- **Cuota Inicial:** Monto a depositar para recibir el crédito hipotecario.
+- **TEA (%):** Porcentaje de la Tasa Efectiva Anual del crédito hipotecario.
 - **Nro. Cuotas:** Número de cuotas a simular.
 
-_Para realizar una búsqueda presionar el botón **Buscar**._
-_Para limpiar los criterios de búsqueda y la tabla de resultados presionar el botón **Limpiar**._
+_Para realizar una búsqueda presionar el botón **Buscar**._<br>
+_Para limpiar los criterios de búsqueda y la tabla de resultados presionar el botón **Limpiar**._<br>
 _Para simular un nuevo crédito hipotecario presionar el botón **Agregar simulación**._
 
 ![Captura de pantalla de página de créditos](/assets/images/credito_screenshot.jpg)
 
-Se pueden ver todas las simulaciones de créditos en la tabla de resultados:
+En la tabla de resultados se pueden ver todas las simulaciones de créditos:
 
 - **Id:** Identificador del crédito.
 - **Fecha:** Fecha en la que fue generado el crédito.
@@ -73,12 +73,12 @@ O ingresar los datos necesarios para la simulación:
 - **Seguro Desgravamen Mensual (%):** Porcentaje mensual del seguro de desgravamen. Debe ser mayor a 0.        
 - **Seguro Inmueble (%):** Porcentaje anual del seguro del bien. Debe ser mayor a 0.
 
-_Para generar el cronograma de pagos presionar el botón **Calcular**._
+_Para generar el cronograma de pagos presionar el botón **Calcular**._<br>
 _Para limpiar los datos ingresados presionar el botón **Limpiar**._
 
 ![Captura de pantalla de página de cronogramas](/assets/images/nuevo_cronograma_screenshot.jpg)
 
-Se puede ver el cronograma de cuotas en la tabla de resultados:
+En la tabla de resultados se puede ver el cronograma de cuotas:
     
 - **Nro. cuota:** Número de cuota.
 - **Fecha de vencimiento:** Fecha en la que vence la cuota.
