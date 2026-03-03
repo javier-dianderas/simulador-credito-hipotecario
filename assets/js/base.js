@@ -474,7 +474,12 @@ class Simulador {
             const respuesta = await fetch(archivo);
             const datos = await respuesta.json();
             this.creditos = datos.map((c) => {
-                return new Credito(c.id, DateTime.fromISO(c.fechaHora), c.valorInmueble, c.cuotaInicial, c.teaPorcentaje, c.nroCuotas, c.seguroDesgravamenMensualPorcentaje, c.seguroInmueblePorcentaje, DateTime.fromISO(c.fechaDesembolso));
+                let credito = new Credito(c.id, DateTime.fromISO(c.fechaHora), c.valorInmueble, c.cuotaInicial, c.teaPorcentaje, c.nroCuotas, c.seguroDesgravamenMensualPorcentaje, c.seguroInmueblePorcentaje, DateTime.fromISO(c.fechaDesembolso));
+                let cuotas = c.cuotas.map((ct) => {
+                    return new Cuota(ct.nroCuota, DateTime.fromISO(ct.fechaVencimiento), ct.amortizacion, ct.interes, ct.seguroDesgravamen, ct.seguroBien, ct.montoCuota, ct.saldoCapital);
+                });
+                credito.cuotas = cuotas;
+                return credito;
             });
             this.guardarCreditos();
             return this.creditos;

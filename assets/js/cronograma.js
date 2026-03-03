@@ -351,7 +351,9 @@ const calcularSubmit = (event) => {
         title: "¿Estás seguro que deseas calcular el cronograma?",
         showCancelButton: true,
         confirmButtonText: "Aceptar",
-        denyButtonText: "Cancelar"
+        denyButtonText: "Cancelar",
+        confirmButtonColor: "rgb(200, 41, 37)",
+        cancelButtonColor: "rgb(149, 177, 199)",
     }).then((result) => {
         if (result.isConfirmed) {
 
