@@ -2,7 +2,28 @@
 
 El simulador genera un cronograma de pago en base a los datos ingresados (basado en un crédito hipotecario estándar).
 
-## Descripción
+## Instalación
+
+- Abre una consola de comandos y crea una carpeta en la raiz con el comando **mkdir simulador**.
+- Ingresa a la carpeta recien creada con el comando **cd simulador**.
+- Clona el repositorio con el comando **git clone https://github.com/javier-dianderas/simulador-credito-hipotecario.git**.
+- Inicia la página **index.html** en un navegador ubicada dentro de la carpeta **simulador-credito-hipotecario**.
+
+### Descripción técnica
+
+El simulador fue desarrollado usando los siguientes lenguajes:
+
+- Html
+- CSS
+- Javascript
+
+Utilizando las siguientes librerías:
+
+- Luxon (https://cdn.jsdelivr.net/npm/luxon@3.7.2/build/global/luxon.min.js)
+- Sweet Alert 2 (https://cdn.jsdelivr.net/npm/sweetalert2@11.26.21/dist/sweetalert2.all.min.js)
+- Toastify (https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js)
+
+## Funcionalidad
 
 El simulador esta compuesto por dos páginas:
 
